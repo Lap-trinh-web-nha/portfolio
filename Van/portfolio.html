@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huỳnh Khánh Vân | Front-end Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Bắt đầu khối CSS để định dạng cho trang web */
+        .back-icon {
+            /* Định dạng cho icon "quay lại" */
+            margin-top: 2rem;
+            /* Khoảng cách lề trên */
+            font-size: 2.5rem;
+            /* Kích thước chữ (icon) */
+            color: var(--accent-color-1);
+            /* Màu sắc, sử dụng biến CSS */
+            animation: nudge-left 1.5s infinite ease-in-out;
+            /* Áp dụng animation "nudge-left" lặp lại vô hạn */
+            cursor: pointer;
+            /* Đổi con trỏ thành hình bàn tay khi di chuột qua */
+        }
+        @keyframes nudge-left {
+            /* Định nghĩa animation đẩy nhẹ sang trái */
+            0%, 100% { transform: translateX(0); }
+            /* Vị trí ban đầu và kết thúc */
+            50% { transform: translateX(-5px); }
+            /* Vị trí ở giữa animation, dịch sang trái 5px */
+        }
+
+        .next-icon {
+            /* Định dạng cho icon "tiếp theo" */
+            position: absolute;
+            /* Định vị tuyệt đối so với phần tử cha gần nhất có position khác static */
+            top: 2rem;
+            /* Vị trí cách lề trên 2rem */
+            right: 3rem;
+            /* Vị trí cách lề phải 3rem */
+            font-size: 2.5rem;
+            /* Kích thước chữ (icon) */
+            color: var(--accent-color-1);
+            /* Màu sắc */
+            animation: nudge-right 1.5s infinite ease-in-out;
+            /* Áp dụng animation "nudge-right" */
+            cursor: pointer;
+            /* Thay đổi con trỏ chuột */
+            z-index: 10;
+            /* Đảm bảo icon nằm trên các phần tử khác */
+        }
+        @keyframes nudge-right {
+            /* Định nghĩa animation đẩy nhẹ sang phải */
+            0%, 100% { transform: translateX(0); }
+            /* Vị trí ban đầu và kết thúc */
+            50% { transform: translateX(5px); }
+            /* Vị trí ở giữa animation, dịch sang phải 5px */
+        }
+
+        :root {
+            /* Định nghĩa các biến (custom properties) cho toàn bộ trang */
+            --light-bg: #FFFFFF;
+            /* Màu nền sáng */
+            --pink-bg: #FFE4E1; /* Misty Rose */
+            /* Màu nền hồng nhạt */
+            --dark-text: #4A4A4A;
+            /* Màu chữ tối */
+            --accent-color-1: #F38181; /* Coral */
+            /* Màu nhấn 1 (cam san hô) */
+            --accent-color-2: #2C5364; /* Dark Teal */
+            /* Màu nhấn 2 (xanh mòng két đậm) */
+            --font-family-body: 'Source Serif Pro', serif;
+            /* Font chữ cho phần thân trang */
+            --font-family-heading: 'Merriweather', serif;
+            /* Font chữ cho các tiêu đề */
+            --skill-bar-bg: #e9ecef;
+            /* Màu nền cho thanh kỹ năng */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Reset CSS: loại bỏ margin, padding mặc định và đổi cách tính kích thước của box model */
+        html { scroll-behavior: smooth; }
+        /* Cho phép cuộn trang mượt mà khi click vào các liên kết neo */
+        body { 
+            font-family: var(--font-family-body); 
+            /* Đặt font chữ mặc định cho toàn trang */
+            background-color: var(--light-bg); 
+            /* Đặt màu nền mặc định */
+            color: var(--dark-text); 
+            /* Đặt màu chữ mặc định */
+            overflow: hidden; 
+            /* Ẩn thanh cuộn của body để tạo hiệu ứng chuyển trang toàn màn hình */
+        }
+        
+        .portfolio-container { 
+            position: relative; 
+            /* Định vị tương đối để các phần tử con có thể định vị tuyệt đối bên trong nó */
+            width: 100vw; 
+            /* Chiều rộng bằng 100% chiều rộng của viewport */
+            height: 100vh;
+            /* Chiều cao bằng 100% chiều cao của viewport */
+            z-index: 2; 
+            /* Đặt thứ tự xếp chồng cao hơn hiệu ứng sao rơi */
+        }
+
+        .landing-screen { 
+            /* Màn hình chào mừng ban đầu */
+            display: flex; 
+            /* Sử dụng flexbox để sắp xếp các phần tử con */
+            width: 100%; 
+            /* Chiều rộng 100% */
+            height: 100%; 
+            /* Chiều cao 100% */
+            position: absolute; 
+            /* Định vị tuyệt đối trong .portfolio-container */
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1); 
+            /* Hiệu ứng chuyển động mượt mà khi thuộc tính transform thay đổi */
+            overflow: hidden;
+            /* Ẩn bất kỳ nội dung nào tràn ra ngoài */
+        }
+        
+        .landing-info { 
+            /* Phần thông tin bên trái của màn hình chào mừng */
+            flex: 6; 
+            /* Chiếm 6 phần trong không gian flexbox */
+            display: flex; 
+            flex-direction: column; 
+            /* Sắp xếp các mục theo chiều dọc */
+            justify-content: center; 
+            /* Căn giữa theo chiều dọc */
+            align-items: flex-start; 
+            /* Căn lề trái theo chiều ngang */
+            padding-left: 10%;
+            /* Thụt lề trái 10% */
+            position: relative;
+            /* Cần thiết cho việc định vị các lớp sóng SVG */
+        }
+        .text-content {
+            position: relative;
+            /* Định vị tương đối */
+            z-index: 2;
+            /* Đảm bảo văn bản nằm trên các lớp sóng */
+        }
+        .waves-container {
+            /* Container cho hiệu ứng sóng SVG */
+            position: absolute;
+            /* Định vị tuyệt đối ở dưới cùng của .landing-info */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            z-index: 1;
+            /* Nằm dưới văn bản nhưng trên nền */
+        }
+        .waves-container svg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            /* Rộng gấp đôi để tạo hiệu ứng cuộn liên tục */
+        }
+        @keyframes move-wave {
+            /* Animation cho sóng di chuyển */
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+            /* Dịch chuyển sang trái 50% chiều rộng của nó (tức là 100% chiều rộng container) */
+        }
+        
+        @keyframes slideInFromLeft {
+            /* Animation trượt vào từ bên trái */
+            from { transform: translateX(-100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideInFromRight {
+            /* Animation trượt vào từ bên phải */
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .landing-info h1 { 
+            font-family: var(--font-family-heading);
+            font-size: 5rem; 
+            color: var(--accent-color-2); 
+            animation: slideInFromLeft 1s ease-out forwards;
+            /* Áp dụng animation trượt vào từ trái */
+        }
+        .landing-info p { 
+            font-size: 1.5rem; 
+            animation: slideInFromRight 1s ease-out forwards;
+            /* Áp dụng animation trượt vào từ phải */
+        }
+
+        .landing-avatar { 
+            /* Phần avatar bên phải của màn hình chào mừng */
+            flex: 4; 
+            /* Chiếm 4 phần trong không gian flexbox */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            cursor: pointer; 
+            background-color: var(--accent-color-2);
+            border-top-left-radius: 50vh; 
+            /* Bo tròn góc trên và dưới bên trái để tạo hình bán nguyệt */
+            border-bottom-left-radius: 50vh;
+            perspective: 1000px;
+            /* Tạo chiều sâu cho hiệu ứng 3D */
+            position: relative;
+            overflow: hidden;
+            /* Ẩn các ngôi sao thừa ra ngoài */
+        }
+        .landing-avatar::before {
+            /* Tạo lớp giả để làm nền chòm sao chuyển động */
+            content: '';
+            position: absolute;
+            width: 200%; height: 200%;
+            top: -50%; left: -50%;
+            /* Kích thước lớn hơn và định vị để tâm xoay ở giữa */
+            background-image: 
+                /* Tạo các ngôi sao nhỏ bằng radial-gradient */
+                radial-gradient(1px 1px at 20% 30%, white, transparent),
+                radial-gradient(1px 1px at 80% 40%, white, transparent),
+                radial-gradient(1px 1px at 50% 70%, white, transparent),
+                radial-gradient(2px 2px at 30% 80%, white, transparent),
+                radial-gradient(2px 2px at 70% 10%, white, transparent);
+            animation: move-constellation 30s linear infinite;
+            /* Animation xoay chòm sao */
+            opacity: 0.5;
+        }
+        @keyframes move-constellation {
+            /* Animation xoay tròn */
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar-image-placeholder { 
+            /* Vùng chứa ảnh avatar */
+            width: 350px; 
+            height: 350px; 
+            border-radius: 50%; 
+            /* Bo tròn thành hình tròn */
+            border: 5px solid white; 
+            box-shadow: 0 0 25px rgba(243, 129, 129, 0.5); 
+            /* Tạo bóng mờ màu hồng */
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 2rem; 
+            background-color: var(--accent-color-2); 
+            color: white; 
+            animation: pulse 2s infinite ease-in-out; 
+            /* Animation nhấp nháy nhẹ */
+            user-select: none; 
+            /* Ngăn người dùng chọn văn bản */
+            transition: transform 0.1s ease-out;
+            /* Chuyển động mượt khi transform thay đổi (cho hiệu ứng 3D) */
+            transform-style: preserve-3d;
+            /* Bảo tồn các biến đổi 3D của phần tử con */
+            position: relative;
+            overflow: hidden;
+            /* Đảm bảo ảnh avatar vừa vặn trong vòng tròn */
+        }
+        .avatar-image-placeholder img {
+            transform: translateZ(20px);
+            /* Đẩy ảnh lên phía trước một chút trong không gian 3D */
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        /* Animation phóng to rồi thu nhỏ lại */
+
+        .discovery-page {
+            /* Trang thông tin chi tiết (trang thứ 2) */
+            display: flex; 
+            position: absolute; 
+            width: 100%; 
+            height: 100%;
+            transform: translateX(100%);
+            /* Ban đầu ẩn ở bên phải màn hình */
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
+            /* Hiệu ứng chuyển cảnh mượt mà */
+            background-color: var(--pink-bg); 
+        }
+        .portfolio-container.discovery-active .landing-screen { transform: translateX(-100%); }
+        /* Khi .portfolio-container có class 'discovery-active', trượt màn hình chào mừng sang trái */
+        .portfolio-container.discovery-active .discovery-page { transform: translateX(0); }
+        /* và trượt trang chi tiết vào vị trí */
+
+        .discovery-left {
+            /* Cột bên trái của trang chi tiết */
+            flex: 4; 
+            background-color: var(--accent-color-2); 
+            border-top-right-radius: 50vh; 
+            /* Bo tròn góc để tạo hình dạng tương ứng với màn hình chào mừng */
+            border-bottom-right-radius: 50vh;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+            /* Đổ bóng nhẹ */
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            position: relative; 
+            z-index: 10;
+            /* Đảm bảo cột này nằm trên cột phải một chút ở phần giao nhau */
+        }
+        
+        .discovery-right { 
+            /* Cột bên phải của trang chi tiết, chứa nội dung chính */
+            flex: 6; 
+            position: relative; 
+            background-color: var(--pink-bg); 
+            overflow-y: auto; 
+            /* Cho phép cuộn dọc nếu nội dung dài hơn */
+            z-index: 1;
+        }
+
+        .discovery-right .content-wrapper { 
+            /* Vùng đệm cho nội dung */
+            padding: 3rem 4rem; 
+        }
+        .content-section {
+            /* Định dạng chung cho mỗi phần nội dung (Thông tin, Kỹ năng,...) */
+            margin-bottom: 4rem; 
+            opacity: 0;
+            /* Ban đầu ẩn đi */
+            transform: translateY(30px) scale(0.98) rotate(-1deg);
+            /* và dịch chuyển xuống, thu nhỏ, xoay nhẹ */
+            transform-origin: top left;
+            /* Đặt gốc biến đổi ở góc trên bên trái */
+            transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            /* Hiệu ứng xuất hiện mượt mà */
+            background-color: var(--light-bg); 
+            padding: 2.5rem;
+            border-radius: 12px;
+            /* Bo tròn các góc */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            /* Đổ bóng nhẹ */
+        }
+        .content-section.visible {
+            /* Class được thêm bằng JS khi section được cuộn vào tầm nhìn */
+            opacity: 1;
+            /* Hiện section ra */
+            transform: translateY(0) scale(1) rotate(0deg);
+            /* Đưa về vị trí và kích thước ban đầu */
+        }
+        
+        .section-with-icon {
+            /* Định dạng cho các section có icon bên cạnh */
+            display: flex;
+            align-items: flex-start;
+            /* Căn icon và text theo lề trên */
+            gap: 2rem;
+            /* Khoảng cách giữa icon và text */
+        }
+        .section-icon {
+            flex-shrink: 0;
+            /* Ngăn icon bị co lại nếu text quá dài */
+            width: 50px;
+        }
+        .section-icon svg {
+            width: 100%;
+            height: auto;
+            fill: var(--accent-color-1);
+            /* Tô màu cho icon SVG */
+        }
+        .section-text {
+            flex-grow: 1;
+            /* Cho phép phần text chiếm hết không gian còn lại */
+        }
+
+        .id-card { 
+            /* Thẻ ID card */
+            width: 260px; 
+            height: 410px; 
+            perspective: 1000px; 
+            /* Tạo chiều sâu cho hiệu ứng lật 3D */
+            transition: transform 0.3s; 
+        }
+        .discovery-left:hover .id-card { transform: scale(1.05); }
+        /* Phóng to card một chút khi di chuột vào cột trái */
+        .id-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+        /* Phần bên trong card, sẽ thực hiện hiệu ứng lật */
+        .id-card.is-flipped .id-card-inner { transform: rotateY(180deg); }
+        /* Khi card có class 'is-flipped', xoay 180 độ quanh trục Y */
+        .id-card-front, .id-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 15px; background-color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 1rem; text-align: center; user-select: none; }
+        /* Định dạng chung cho mặt trước và mặt sau của card, 'backface-visibility: hidden' để ẩn mặt sau khi nó quay đi */
+        .id-card-back { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transform: rotateY(180deg); }
+        /* Định dạng riêng cho mặt sau và xoay nó lại ban đầu */
+        .qr-code-placeholder { width: 170px; height: 170px; background-color: #eee; border-radius: 8px; margin-bottom: 15px; }
+        /* Vùng chứa mã QR */
+        .qr-code-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+        /* Đảm bảo ảnh QR vừa vặn */
+        .id-photo-placeholder { width: 140px; height: 140px; background: #e0e0e0; margin: 1rem auto; border-radius: 5px; }
+        /* Vùng chứa ảnh thẻ */
+        .id-card h4 { color: var(--accent-color-2); font-size: 1.2rem; }
+
+        .flip-icon-container {
+            /* Container cho icon lật thẻ */
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 28px;
+            height: 28px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            /* Hiệu ứng mượt mà khi hover */
+        }
+        .flip-icon-container svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--accent-color-2);
+        }
+        .id-card:hover .flip-icon-container {
+            /* Hiệu ứng khi hover vào card */
+            opacity: 1;
+            transform: scale(1.1) rotate(45deg);
+            /* Phóng to và xoay icon */
+        }
+
+        .content-section h3 { 
+            /* Định dạng cho tiêu đề các section */
+            font-family: var(--font-family-heading);
+            font-size: 2rem; 
+            color: var(--accent-color-2); 
+            margin-bottom: 1rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .section-text h3 {
+            margin-bottom: 0.5rem;
+            /* Giảm lề dưới cho tiêu đề trong layout có icon */
+        }
+        .content-section p { line-height: 1.8; }
+        /* Tăng khoảng cách giữa các dòng để dễ đọc */
+        .content-section strong { color: var(--accent-color-1); font-weight: 600; }
+        /* Làm nổi bật văn bản in đậm */
+        .content-section a { 
+            color: var(--accent-color-1); 
+            text-decoration: underline; 
+            font-weight: 600; 
+        }
+        
+        .counters-section {
+            /* Section chứa các con số thống kê */
+            padding: 6rem 4rem; 
+            position: relative;
+            background-image: url('static/counters-bg.jpg'); 
+            /* Ảnh nền */
+            background-size: cover;
+            /* Ảnh nền che phủ toàn bộ phần tử */
+            background-position: center;
+            /* Căn giữa ảnh nền */
+            background-attachment: fixed; 
+            /* Tạo hiệu ứng parallax: ảnh nền đứng yên khi cuộn trang */
+            color: white;
+            text-align: center;
+            overflow: hidden; 
+            border-radius: 12px; 
+            margin-left: 0; 
+            margin-right: 0; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .counters-section::before { 
+            /* Tạo một lớp giả để làm mờ ảnh nền */
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: inherit; 
+            /* Kế thừa ảnh nền từ cha */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px); 
+            /* Áp dụng bộ lọc làm mờ */
+            transform: scale(1.02); 
+            /* Phóng to nhẹ để che đi cạnh mờ */
+            z-index: 0;
+        }
+        .counters-section .overlay {
+            /* Tạo một lớp phủ tối */
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0, 0.5); 
+            /* Màu đen trong suốt 50% */
+            z-index: 1;
+            border-radius: 12px;
+        }
+        .counters-container {
+            /* Container chứa các con số */
+            position: relative; z-index: 2;
+            /* Đảm bảo nằm trên lớp phủ và lớp mờ */
+            display: flex;
+            justify-content: space-around;
+            /* Phân bố đều các item */
+        }
+        .counter-item .counter-number {
+            /* Định dạng cho con số */
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .counter-item .counter-label {
+            /* Định dạng cho nhãn */
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .skills-container { display: flex; flex-wrap: wrap; gap: 2rem; }
+        /* Container cho các kỹ năng, dùng flexbox và cho phép xuống dòng */
+        .skill-item { width: calc(50% - 1rem); }
+        /* Mỗi kỹ năng chiếm gần 50% chiều rộng để tạo 2 cột */
+        .skill-item .skill-info { display: flex; justify-content: space-between; margin-bottom: 5px; font-weight: 600; }
+        /* Hiển thị tên và % kỹ năng trên cùng một hàng */
+        .progress-bar { width: 100%; height: 10px; background-color: var(--skill-bar-bg); border-radius: 5px; overflow: hidden; }
+        /* Thanh tiến trình nền */
+        .progress-bar div { 
+            /* Thanh tiến trình thực tế */
+            height: 100%; 
+            border-radius: 5px; 
+            width: 0; 
+            /* Chiều rộng ban đầu là 0, sẽ được thay đổi bằng JS */
+            transition: width 1s ease-out; 
+            /* Hiệu ứng tăng chiều rộng mượt mà */
+            background-color: var(--accent-color-2);
+        }
+
+        .project-image-gallery {
+            /* Vùng chứa bộ sưu tập ảnh dự án */
+            margin-top: 1.5rem;
+        }
+        .main-image-container img {
+            /* Ảnh chính lớn */
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 1px solid #eee;
+        }
+        .thumbnail-container {
+            /* Vùng chứa các ảnh thu nhỏ */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            /* Tạo lưới 4 cột đều nhau */
+            gap: 1rem;
+        }
+        .thumbnail-container img {
+            /* Các ảnh thu nhỏ */
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            opacity: 0.7;
+            /* Làm mờ nhẹ */
+            transition: opacity 0.3s ease, border-color 0.3s ease;
+            border: 2px solid transparent;
+            /* Viền trong suốt để không bị giật layout khi thêm viền */
+            aspect-ratio: 1 / 1;
+            /* Giữ tỷ lệ 1:1 (hình vuông) */
+            object-fit: contain;
+            /* Đảm bảo ảnh hiển thị đầy đủ trong khung */
+            background-color: #f5f5f5;
+        }
+        .thumbnail-container img:hover {
+            opacity: 1;
+            /* Hiện rõ khi di chuột qua */
+        }
+        .thumbnail-container img.active {
+            /* Ảnh thu nhỏ đang được chọn */
+            opacity: 1;
+            border-color: var(--accent-color-1);
+            /* Thêm viền màu nhấn */
+        }
+
+        .falling-stars-container {
+            /* Container cho hiệu ứng sao rơi */
+            position: fixed;
+            /* Cố định trên toàn trang */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* Ẩn các ngôi sao bay ra ngoài */
+            pointer-events: none;
+            /* Cho phép click xuyên qua lớp này */
+            z-index: 1; 
+            /* Nằm dưới nội dung chính */
+        }
+
+        .star {
+            /* Định dạng cho mỗi ngôi sao */
+            position: absolute;
+            background-color: rgb(1, 21, 11); 
+            border-radius: 50%;
+            opacity: 0;
+            /* Ban đầu ẩn */
+            animation-name: fall, twinkle;
+            /* Áp dụng 2 animation cùng lúc */
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            box-shadow: 0 0 8px 3px rgba(159, 158, 120, 0.7); 
+            /* Tạo vầng sáng xung quanh ngôi sao */
+        }
+
+        @keyframes fall {
+            /* Animation rơi của ngôi sao */
+            0% { transform: translateY(-100%); opacity: 0; } /* Bắt đầu từ trên cùng, ẩn */
+            10% { opacity: 1; } /* Hiện ra */
+            90% { opacity: 1; } /* Vẫn hiện */
+            100% { transform: translateY(100vh); opacity: 0; } /* Rơi xuống dưới cùng và biến mất */
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        /* // Animation nhấp nháy nhẹ của ngôi sao */
+    </style>
+</head>
+<body>
+    
+<div class="falling-stars-container" id="fallingStarsContainer"></div>
+    
+<div class="portfolio-container" id="portfolioContainer">
+    <section class="landing-screen">
+        <div class="landing-info">
+            <div class="text-content">
+                <h1>Huỳnh Khánh Vân</h1>
+                <p>Front-end Developer</p>
+            </div>
+            <div class="waves-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                    <defs>
+                        <path id="wave-path" d="M0,160L48,181.3C96,203,192,245,288,240C384,235,480,181,576,149.3C672,117,768,107,864,128C960,149,1056,203,1152,208C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                    </defs>
+                    <use href="#wave-path" fill="rgba(255, 228, 225, 0.5)" style="animation: move-wave 25s linear infinite;"></use>
+                    <use href="#wave-path" fill="rgba(255, 228, 225, 0.3)" style="animation: move-wave 20s linear infinite reverse;"></use>
+                    <use href="#wave-path" fill="rgba(255, 228, 225, 0.2)" style="animation: move-wave 15s linear infinite;"></use>
+                    <use href="#wave-path" fill="rgba(255, 228, 225, 0.1)" style="animation: move-wave 10s linear infinite reverse;"></use>
+                </svg>
+            </div>
+        </div>
+        <div class="landing-avatar" id="landingAvatar">
+            <div class="next-icon" id="nextButton">→</div> <div class="avatar-image-placeholder" id="avatarImage">
+                <img src="static/picture.jpg" alt="Ảnh cá nhân" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+            </div>
+        </div>
+    </section>
+
+    <main class="discovery-page" id="discoveryPage">
+        <div class="discovery-left">
+            <div class="id-card" id="idCard">
+                <div class="id-card-inner">
+                    <div class="id-card-front">
+                        <div class="id-photo-placeholder"><img src="static/avatar.png" alt="Ảnh thẻ" style="width:100%; height:100%; object-fit:cover; border-radius:5px;"></div>
+                        <h4>Huỳnh Khánh Vân</h4>
+                        <p>Lớp: CN2301CLCB</p>
+                        <p>ID: 22022005</p>
+                        <div class="flip-icon-container">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path d="M434.7 64h-35.3c-4.8 0-9.3 2.1-12.4 5.7L297.3 154.5c-2.4 2.8-5.8 4.5-9.3 4.5s-6.9-1.7-9.3-4.5L189.3 69.7c-3.1-3.6-7.6-5.7-12.4-5.7H141.6c-12.5 0-24.4 7.9-28.8 19.8s-1.4 25.5 8.1 34.9l121.6 121.6c12.5 12.5 32.8 12.5 45.3 0l121.6-121.6c9.5-9.5 12.5-23 8.1-34.9s-16.3-19.8-28.8-19.8zM41.4 309.3c-3.1-3.6-7.6-5.7-12.4-5.7H-2c-12.5 0-24.4 7.9-28.8 19.8s-1.4 25.5 8.1 34.9l121.6 121.6c12.5 12.5 32.8 12.5 45.3 0l121.6-121.6c9.5-9.5 12.5-23 8.1-34.9s-16.3-19.8-28.8-19.8h-35.3c-4.8 0-9.3 2.1-12.4 5.7L139.7 394.2c-2.4 2.8-5.8 4.5-9.3 4.5s-6.9-1.7-9.3-4.5L31.6 309.3z"/>
+                            </svg>                                        
+                        </div>
+                    </div>
+                    <div class="id-card-back">
+                        <div class="qr-code-placeholder"><img src="static/qr-github.png" alt="GitHub QR Code"></div>
+                        <p>Scan to view my GitHub</p>
+                    </div>
+                </div>
+            </div>
+            <div class="back-icon" id="backButton">←</div>
+        </div>
+
+        <div class="discovery-right" id="discoveryRight">
+            <div class="content-wrapper">
+                <section id="info" class="content-section section-with-icon">
+                    <div class="section-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <div class="section-text">
+                        <h3>Thông tin cá nhân</h3>
+                        <p><strong>Họ và tên:</strong> Huỳnh Khánh Vân</p>
+                        <p><strong>Ngày sinh:</strong> 22/02/2005</p>
+                        <p><strong>Trường:</strong> Đại học Giao Thông Vận Tải TP.HCM</p>
+                        <p>Hành trình của mình với Công nghệ Thông tin là một cuộc khám phá đầy bất ngờ. Xuất phát điểm không phải là đam mê, nhưng chính những thử thách và logic trong từng dòng code sau năm học đầu tiên đã khơi dậy trong tôi một sự hứng thú mãnh liệt. Tôi nhận ra mình say mê việc <strong>'xây dựng'</strong> - biến những ý tưởng vô hình thành các sản phẩm số có giao diện đẹp mắt và tương tác mượt mà.</p>
+                    </div>
+                </section>
+
+                <section id="goal" class="content-section section-with-icon">
+                    <div class="section-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM10.01 16.5l5.98-5.99-1.41-1.41-4.58 4.58-2.58-2.58L6 12.52l4.01 4.01z"/></svg>
+                    </div>
+                    <div class="section-text">
+                        <h3>Mục tiêu nghề nghiệp</h3>
+                        <p>Tìm kiếm cơ hội thực tập vị trí Front-end Developer để áp dụng kiến thức về HTML, CSS, và JavaScript vào các dự án thực tế. Mong muốn được học hỏi, phát triển kỹ năng với các framework hiện đại và đóng góp vào việc xây dựng những sản phẩm có trải nghiệm người dùng xuất sắc.</p>
+                    </div>
+                </section>
+
+                <section id="hobby" class="content-section section-with-icon">
+                    <div class="section-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <div class="section-text">
+                        <h3>Sở thích</h3>
+                        <p>Ngoài giờ học, mình dành thời gian cho những đam mê sáng tạo như vẽ minh họa kỹ thuật số (digital painting) và làm đồ thủ công. Mình còn tự tay vận hành một tiệm nhỏ chuyên bán các sản phẩm trang sức handmade do chính mình thiết kế. Bên cạnh đó, chơi guitar cũng đã trở thành một phần không thể thiếu trong cuộc sống hằng ngày của mình. Những sở thích này không chỉ giúp mình nuôi dưỡng tư duy thẩm mỹ mà còn là nguồn cảm hứng sáng tạo trong công việc và học tập.</p>
+                        <div class="main-image-container">
+                            <img src="static/so-thich.jpg" alt="Ảnh sở thích" class="inline-image"
+                                style="
+                                    width: 85%; 
+                                    height: auto;
+                                    border-radius: 20px;
+                                    cursor: pointer;
+                                    display: block;     
+                                    margin-left: auto; 
+                                    margin-right: auto; 
+                                    margin-top: 1.5rem;
+                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                                ">
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="skills" class="content-section">
+                    <h3>Ngôn ngữ & Kỹ năng</h3>
+                    <div class="skills-container">
+                        <div class="skill-item">
+                            <div class="skill-info"><span>HTML</span><span>85%</span></div>
+                            <div class="progress-bar"><div data-width="85%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>CSS</span><span>70%</span></div>
+                            <div class="progress-bar"><div data-width="70%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>JavaScript</span><span>50%</span></div>
+                            <div class="progress-bar"><div data-width="50%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>C++</span><span>70%</span></div>
+                            <div class="progress-bar"><div data-width="70%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>Figma</span><span>55%</span></div>
+                            <div class="progress-bar"><div data-width="55%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info"><span>Git & GitHub</span><span>75%</span></div>
+                            <div class="progress-bar"><div data-width="75%"></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h3>Chứng chỉ & Giải thưởng</h3>
+                    <p><strong>Liên quan đến IT:</strong> Hiện chưa có.</p>
+                    <p><strong>Thành tích khác:</strong> Chứng chỉ Kỹ năng Tranh biện (Giúp rèn luyện tư duy phản biện và khả năng trình bày vấn đề một cách logic).</p>
+                </section>
+                
+                <section class="content-section counters-section">
+                    <div class="overlay"></div> <div class="counters-container">
+                        <div class="counter-item">
+                            <span class="counter-number" data-to="6">0</span>
+                            <span class="counter-label">Dự án cá nhân</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" data-to="5">0</span>
+                            <span class="counter-label">Dự án nhóm</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" data-to="6">0</span>
+                            <span class="counter-label">Công cụ thành thạo</span>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" data-to="1">0</span>
+                            <span class="counter-label">Kỳ thực tập</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="projects" class="content-section">
+                    <h3>Dự án</h3>
+                    <p>Đảm nhận vai trò <strong>Full-stack Developer</strong> trong dự án startup <strong>SYNVIA</strong> – một nền tảng cung cấp website và hệ thống quản lý dành cho doanh nghiệp. Mình tham gia toàn bộ quá trình phát triển, từ chuyển thiết kế giao diện thành mã nguồn <strong>HTML/CSS</strong> cho đến xây dựng <strong>API</strong> và xử lý <strong>logic phía máy chủ</strong>. Một số sản phẩm tiêu biểu gồm các trang <strong>tạo bài tập</strong>, <strong>quản lý lớp học</strong> và <strong>làm bài trực tuyến</strong>, giúp nâng cao trải nghiệm người dùng và tối ưu quy trình vận hành hệ thống.</p>
+                    <div class="project-image-gallery">
+                        <div class="main-image-container">
+                            <img src="static/project-synvia1.png" alt="Ảnh dự án SYNVIA 1" id="mainSynviaImage">
+                        </div>
+                        <div class="thumbnail-container" id="thumbnailSynviaContainer">
+                            <img src="static/project-synvia1.png" alt="Thumbnail 1" class="thumbnail active">
+                            <img src="static/project-synvia2.png" alt="Thumbnail 2" class="thumbnail">
+                            <img src="static/project-synvia3.png" alt="Thumbnail 3" class="thumbnail">
+                            <img src="static/project-synvia4.png" alt="Thumbnail 4" class="thumbnail">
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="project-pos" class="content-section">
+                    <h3>Dự án cá nhân: Máy POS Bán Hàng</h3>
+                    <p>Đây là dự án cá nhân mà mình tự phát triển để xây dựng một hệ thống POS (Point of Sale) hoàn chỉnh. Với vai trò Full-stack, mình đã tự tay thiết kế cơ sở dữ liệu, xây dựng API và hoàn thiện giao diện người dùng. Dù giao diện chưa phải là điểm mạnh nhất, dự án này đã giúp mình rèn luyện sâu sắc về logic xử lý nghiệp vụ bán hàng và quản lý.</p>
+                    <div class="project-image-gallery">
+                        <div class="main-image-container">
+                            <img src="static/project-pos-1.png" alt="Ảnh dự án POS 1" id="mainPOSImage">
+                        </div>
+                        <div class="thumbnail-container" id="thumbnailPOSContainer">
+                            <img src="static/project-pos-1.png" alt="Thumbnail 1" class="thumbnail active">
+                            <img src="static/project-pos-2.png" alt="Thumbnail 2" class="thumbnail">
+                            <img src="static/project-pos-3.png" alt="Thumbnail 3" class="thumbnail">
+                            <img src="static/project-pos-4.png" alt="Thumbnail 4" class="thumbnail">
+                            <img src="static/project-pos-5.png" alt="Thumbnail 5" class="thumbnail">
+                            <img src="static/project-pos-6.png" alt="Thumbnail 6" class="thumbnail">
+                            <img src="static/project-pos-7.png" alt="Thumbnail 7" class="thumbnail">
+                            <img src="static/project-pos-8.png" alt="Thumbnail 8" class="thumbnail">
+                        </div>
+                    </div>
+                </section>
+
+                <section id="contact" class="content-section">
+                    <h3>Liên hệ</h3>
+                    <p><strong>Email:</strong> <a href="mailto:hoangkhuongvan@gmail.com">hoangkhuongvan@gmail.com</a></p>
+                    <p><strong>GitHub:</strong> <a href="https://github.com/hoangkhuongvan-gif" target="_blank">github.com/hoangkhuongvan-gif</a></p>
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Chờ cho toàn bộ nội dung HTML được tải xong trước khi chạy JavaScript
+    document.addEventListener('DOMContentLoaded', () => {
+        // Lấy các phần tử HTML cần thiết và gán vào biến
+        const portfolioContainer = document.getElementById('portfolioContainer');
+        const landingAvatar = document.getElementById('landingAvatar');
+        const avatarImage = document.getElementById('avatarImage');
+        const backButton = document.getElementById('backButton');
+        const idCard = document.getElementById('idCard');
+        const sections = document.querySelectorAll('.content-section');
+        const progressBars = document.querySelectorAll('.progress-bar div');
+        const counterNumbers = document.querySelectorAll('.counter-number');
+        const discoveryRight = document.getElementById('discoveryRight');
+        const nextButton = document.getElementById('nextButton');
+
+        // Hàm để chuyển sang trang thông tin chi tiết
+        const switchToDiscoveryPage = () => {
+            portfolioContainer.classList.add('discovery-active');
+        };
+
+        // Gán sự kiện click cho vùng avatar để chuyển trang
+        landingAvatar.addEventListener('click', switchToDiscoveryPage);
+        // Gán sự kiện click cho nút "next"
+        nextButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Ngăn sự kiện click lan ra phần tử cha (landingAvatar)
+            switchToDiscoveryPage();
+        });
+
+        // Gán sự kiện click cho nút "back" để quay lại màn hình chào mừng
+        backButton.addEventListener('click', () => {
+            portfolioContainer.classList.remove('discovery-active');
+        });
+        
+        // Gán sự kiện click cho thẻ ID để lật thẻ
+        idCard.addEventListener('click', (e) => {
+            e.stopPropagation(); // Ngăn sự kiện click lan ra các phần tử khác
+            idCard.classList.toggle('is-flipped'); // Thêm/xóa class 'is-flipped'
+        });
+
+        // Hàm để chạy hiệu ứng đếm số
+        const animateCounters = () => {
+            counterNumbers.forEach(counter => {
+                if (counter.hasAnimated) return; // Nếu đã chạy animation rồi thì không chạy lại
+                const target = +counter.getAttribute('data-to'); // Lấy số đích từ thuộc tính data-to
+                let current = 0;
+                const duration = 2000; // Thời gian chạy animation (2 giây)
+                const stepTime = 20; // Thời gian mỗi bước (20ms)
+                const steps = duration / stepTime; // Tổng số bước
+                const increment = target / steps; // Giá trị tăng lên mỗi bước
+
+                // Dùng setInterval để cập nhật số sau mỗi stepTime
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer); // Dừng lại khi đạt đến số đích
+                        counter.innerText = target.toLocaleString(); // Hiển thị số đích
+                    } else {
+                        counter.innerText = Math.ceil(current).toLocaleString(); // Hiển thị số hiện tại (làm tròn lên)
+                    }
+                }, stepTime);
+                counter.hasAnimated = true; // Đánh dấu là đã chạy animation
+            });
+        };
+        
+        // Sử dụng IntersectionObserver để phát hiện khi các section được cuộn vào tầm nhìn
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Nếu section đi vào viewport
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible'); // Thêm class để kích hoạt animation xuất hiện
+                    
+                    // Nếu là section kỹ năng
+                    if(entry.target.id === 'skills') {
+                        // Kích hoạt animation cho các thanh tiến trình
+                        progressBars.forEach(bar => {
+                            bar.style.width = bar.dataset.width; // Đặt chiều rộng bằng giá trị trong data-width
+                        });
+                    }
+
+                    // Nếu là section đếm số
+                    if(entry.target.classList.contains('counters-section')) {
+                           animateCounters(); // Gọi hàm chạy hiệu ứng đếm số
+                    }
+                }
+            });
+        }, { root: discoveryRight, threshold: 0.2 }); // root: phần tử cuộn là cột phải, threshold: kích hoạt khi 20% section hiện ra
+
+        // Bắt đầu theo dõi tất cả các section
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+
+        // --- Hiệu ứng sao rơi ---
+        const fallingStarsContainer = document.getElementById('fallingStarsContainer');
+        const numberOfStars = 40; // Số lượng ngôi sao
+
+        // Hàm tạo một ngôi sao
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 3 + 1.5; // Kích thước ngẫu nhiên
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}vw`; // Vị trí ngang ngẫu nhiên
+            const fallDuration = Math.random() * 8 + 6; // Thời gian rơi ngẫu nhiên
+            star.style.animationDuration = `${fallDuration}s, ${Math.random() * 3 + 2}s`; // Thời gian cho 2 animation (rơi, nhấp nháy)
+            const fallDelay = Math.random() * 10; // Độ trễ ngẫu nhiên trước khi bắt đầu rơi
+            star.style.animationDelay = `${fallDelay}s, ${fallDelay}s`;
+            fallingStarsContainer.appendChild(star);
+        }
+
+        // Tạo số lượng sao ban đầu
+        for (let i = 0; i < numberOfStars; i++) {
+            createStar();
+        }
+
+        // --- Hiệu ứng 3D Parallax cho Avatar khi di chuột ---
+        landingAvatar.addEventListener('mousemove', (e) => {
+            const rect = landingAvatar.getBoundingClientRect(); // Lấy kích thước và vị trí của vùng avatar
+            const x = e.clientX - rect.left; // Tọa độ X của chuột bên trong vùng avatar
+            const y = e.clientY - rect.top; // Tọa độ Y của chuột bên trong vùng avatar
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = x - centerX; // Khoảng cách từ chuột đến tâm theo trục X
+            const deltaY = y - centerY; // Khoảng cách từ chuột đến tâm theo trục Y
+            const rotateY = (deltaX / centerX) * 15; // Tính góc xoay Y (tối đa 15 độ)
+            const rotateX = -(deltaY / centerY) * 15; // Tính góc xoay X (tối đa 15 độ, có dấu trừ để xoay đúng hướng)
+            avatarImage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; // Áp dụng transform
+        });
+
+        // Trả avatar về vị trí cũ khi chuột rời khỏi
+        landingAvatar.addEventListener('mouseleave', () => {
+            avatarImage.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+
+        // --- Chức năng cho bộ sưu tập ảnh dự án ---
+        // Hàm tái sử dụng để thiết lập một bộ sưu tập ảnh
+        function setupGallery(mainImageId, thumbnailContainerId) {
+            const mainImage = document.getElementById(mainImageId); // Ảnh chính
+            const thumbnails = document.querySelectorAll(`#${thumbnailContainerId} .thumbnail`); // Các ảnh thu nhỏ
+
+            // Lặp qua từng ảnh thu nhỏ và gán sự kiện click
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    mainImage.src = this.src; // Thay đổi ảnh chính thành ảnh của thumbnail được click
+                    thumbnails.forEach(t => t.classList.remove('active')); // Xóa class 'active' khỏi tất cả thumbnail
+                    this.classList.add('active'); // Thêm class 'active' cho thumbnail vừa được click
+                });
+            });
+        }
+
+        // Thiết lập cho cả hai bộ sưu tập ảnh
+        setupGallery('mainSynviaImage', 'thumbnailSynviaContainer');
+        setupGallery('mainPOSImage', 'thumbnailPOSContainer');
+    });
+</script>
+</body>
+</html>
