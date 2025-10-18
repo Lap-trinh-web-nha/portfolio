@@ -1,0 +1,137 @@
+﻿/* ======================= SECTION 3: PROJECTS ======================= */
+.projects-section {
+    padding: 100px 40px; /* Tạo không gian ở trên/dưới và hai bên */
+    width: 100%;
+    max-width: 1400px; /* Giới hạn chiều rộng tối đa */
+    margin: 0 auto; /* Căn giữa section */
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+    .section-title h2 {
+        font-family: 'Source Code Pro', monospace;
+        font-size: 2.5rem;
+        color: #E5E7EB;
+        text-shadow: 0 0 10px rgba(229, 231, 235, 0.2);
+    }
+
+/* --- Lưới chứa các thẻ dự án --- */
+.projects-grid {
+    display: grid;
+    /* Đây là một kỹ thuật CSS Grid rất mạnh:
+     - auto-fit: Tự động lấp đầy hàng với càng nhiều cột càng tốt.
+     - minmax(350px, 1fr): Mỗi cột có chiều rộng tối thiểu là 350px. 
+       Nếu còn dư không gian, các cột sẽ tự động chia đều (1fr).
+       -> Tự động responsive mà không cần media query!
+    */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px; /* Khoảng cách giữa các thẻ */
+}
+
+/* --- Kiểu dáng cho một thẻ dự án --- */
+.project-card {
+    /* Áp dụng hiệu ứng kính mờ nhất quán */
+    background: rgba(23, 30, 48, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden; /* Ẩn các phần bị tràn ra khỏi bo góc */
+    display: flex;
+    flex-direction: column; /* Xếp các phần tử (ảnh, nội dung) theo chiều dọc */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng chuyển động mượt mà */
+}
+
+    .project-card:hover {
+        transform: translateY(-10px); /* Nhấc thẻ lên một chút khi di chuột vào */
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2); /* Đổ bóng tạo chiều sâu */
+    }
+
+/* --- Phần ảnh dự án --- */
+.project-image-container {
+    height: 220px;
+    overflow: hidden;
+}
+
+    .project-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Đảm bảo ảnh lấp đầy mà không bị méo */
+        transition: transform 0.4s ease;
+    }
+
+.project-card:hover .project-image-container img {
+    transform: scale(1.05); /* Phóng to ảnh một chút khi di chuột vào thẻ */
+}
+
+/* --- Phần nội dung dự án --- */
+.project-content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Giúp phần content chiếm hết không gian còn lại */
+}
+
+    .project-content h3 {
+        font-size: 1.25rem;
+        color: #E5E7EB;
+        margin-bottom: 10px;
+    }
+
+    .project-content p {
+        font-size: 0.95rem;
+        color: #9CA3AF;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        flex-grow: 1; /* Đẩy các tag và link xuống dưới cùng */
+    }
+
+/* --- Các tag công nghệ --- */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+    .project-tags span {
+        background-color: rgba(52, 211, 153, 0.1);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        color: #A7F3D0;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+
+/* --- Các link của dự án --- */
+.project-links {
+    margin-top: auto; /* Đẩy phần link xuống cuối cùng của thẻ */
+}
+
+.project-link {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid #34D399;
+    color: #34D399;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .project-link:hover {
+        background-color: #34D399;
+        color: #111827;
+    }
+
+.disabled-link {
+    border-color: #4B5563;
+    color: #4B5563;
+    cursor: not-allowed;
+    pointer-events: none; /* Vô hiệu hóa click */
+}

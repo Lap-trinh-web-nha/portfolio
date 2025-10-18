@@ -1,0 +1,167 @@
+﻿/* ======================= SECTION 5: FOOTER / CONTACT ======================= */
+.footer-section {
+    padding: 100px 40px 40px 40px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-subtitle {
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    color: #9CA3AF;
+    line-height: 1.7;
+}
+
+.contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.contact-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+    .contact-link i {
+        font-size: 24px;
+        color: #E5E7EB;
+        transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+        background: #34D399;
+        border-color: #34D399;
+    }
+
+        .contact-link:hover i {
+            color: #111827;
+        }
+
+.copyright {
+    color: #4B5563;
+    font-size: 0.9rem;
+}
+
+
+/* =================================================================== */
+/* =================== TIẾP TỤC RESPONSIVE DESIGN =================== */
+/* =================================================================== */
+
+/* --- Áp dụng cho màn hình Tablet và nhỏ hơn (dưới 1024px) --- */
+@media (max-width: 1024px) {
+    /* ... Code responsive cho Hero Section đã có ở trên ... */
+
+    /* --- About Section --- */
+    .stack-container {
+        /* Cho phép các thẻ thu nhỏ lại trên tablet */
+        max-width: 700px;
+        height: 550px;
+    }
+
+    /* --- Projects Section --- */
+    .projects-grid {
+        /* Trên tablet, chỉ hiển thị 2 cột */
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    /* --- Hobbies Section --- */
+    .polaroid-grid {
+        /* Trên tablet, hiển thị 2 cột thay vì 4 */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+}
+
+/* --- Áp dụng cho màn hình Mobile (dưới 640px) --- */
+@media (max-width: 640px) {
+    /* ... Code responsive cho Hero Section đã có ở trên ... */
+
+    body {
+        /* Chữ nhỏ hơn một chút trên mobile để dễ đọc */
+        font-size: 15px;
+    }
+
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    /* --- About Section --- */
+    .stack-container {
+        width: 100%;
+        height: auto;
+        /* Bỏ hiệu ứng chồng thẻ, chuyển sang xếp dọc */
+        position: static;
+        cursor: default;
+    }
+
+    .stacked-card {
+        position: static;
+        height: auto;
+        transform: none !important; /* Xóa mọi hiệu ứng transform */
+        margin-bottom: 20px;
+    }
+
+    .stack-container:hover .card-story,
+    .stack-container:hover .card-skills {
+        transform: none !important; /* Tắt hiệu ứng hover */
+    }
+
+    .card-story .about-content p {
+        max-width: 100%;
+    }
+
+    .hover-indicator {
+        display: none; /* Ẩn dòng chữ "Di chuột..." */
+    }
+
+    /* --- Projects Section --- */
+    .projects-section {
+        padding: 80px 20px; /* Giảm padding hai bên */
+    }
+
+    .projects-grid {
+        /* Trên mobile, chỉ hiển thị 1 cột */
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Hobbies Section --- */
+    .hobbies-section {
+        padding: 80px 20px;
+    }
+
+    .polaroid-grid {
+        /* Trên mobile, chỉ hiển thị 1 cột */
+        grid-template-columns: 1fr;
+        max-width: 350px; /* Giới hạn độ rộng của ảnh */
+    }
+
+    .polaroid-card:nth-child(even) {
+        margin-top: 0; /* Reset margin cho thẳng hàng */
+    }
+
+    /* --- Footer Section --- */
+    .contact-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .contact-link {
+        width: 50px;
+        height: 50px;
+    }
+
+        .contact-link i {
+            font-size: 20px;
+        }
+}
