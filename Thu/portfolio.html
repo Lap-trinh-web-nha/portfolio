@@ -1,0 +1,1771 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio - Minh Thư</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --sidebar-width: 200px;
+      --menu-bg: #1f4b68;     
+      --menu-text: #d0a933;  
+      --muted: #8b8b8b;
+      --text-dark: #111;
+      --max-content-width: 1100px;
+      --page-bg:#ffff;
+    }
+
+    *{box-sizing: border-box}
+    html,body{height:100%;}
+
+    body{
+      margin:0;
+      font-family: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text-dark);
+      background:var(--page-bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      scroll-behavior: smooth;
+      line-height:1.45;
+    }
+    
+
+    body:not(.home-active) {
+  background-image: url("images/texture.jpg"); 
+  background-repeat: repeat;
+  background-size: 600px auto;
+  background-attachment: fixed;
+  background-color: #fff;
+  transition: background 0.5s ease;
+    }
+
+    /* Layout */
+    .container{
+      display:flex;
+      min-height:100vh;
+      align-items:stretch;
+    }
+
+    /* ===== SIDEBAR ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: var(--sidebar-width);
+  background: rgba(255, 255, 255, 0.04); /* nền gần như trong suốt */
+  backdrop-filter: blur(12px); /* hiệu ứng kính mờ */
+  color: var(--menu-text);
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.25);
+
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform 0.45s ease, opacity 0.45s ease;
+  z-index: 45;
+  
+}
+
+/* ===== SIDEBAR CONTENT ===== */
+.name {
+  font-weight: 700;
+  font-size: 17px;
+  margin-top: 6px;
+  text-align: center;
+  color: var(--menu-text);
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: var(--menu-text);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+/* ===== NAV ===== */
+nav {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: #000000;
+  padding: 8px 20px;
+  width: 100%;
+  display: block;
+  text-align: center;
+  letter-spacing: 0.06em;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+}
+
+.nav-list a:hover,
+.nav-list a.active {
+  color: #f7d600 !important;
+  background: rgba(208, 169, 51, 0.1);
+  transform: translateX(4px);
+}
+
+  .logo{
+  position: fixed; 
+  top: 12px;
+  right: 20px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(0,0,0,0.18);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 50; 
+}
+/* Hover logo hoặc sidebar để mở */
+.logo:hover + .sidebar,
+.sidebar:hover {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+    .sidebar-footer{
+      margin-top:auto;
+      font-size:12px;
+      color:rgba(208,169,51,0.9);
+      text-align:center;
+      padding-bottom:14px;
+    }
+
+ .main {
+  margin-left: 0; 
+  flex: 1;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Section chung */
+.section {
+  max-width: var(--max-content-width);
+  margin: 0 auto 80px auto;
+  padding: 100px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* HOME SECTION */
+#home {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* Chiều cao toàn màn hình */
+  background-image: url("images/river.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-left: 80px; /* Cách lề trái 1 chút để chữ không dính sát */
+  color: #fff;
+  animation: rippleEffect 8s infinite ease-in-out;
+}
+
+/* Lớp phủ mờ giúp chữ rõ hơn */
+#home::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+  filter: blur(2px);
+}
+
+/* Gợn sóng nền nhẹ */
+#home::after {
+  content: "";
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, transparent 80%);
+  animation: ripple 12s infinite linear;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  0% { background-size: 100% 100%; }
+  50% { background-size: 102% 102%; }
+  100% { background-size: 100% 100%; }
+}
+
+.wave {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 80%);
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0.6;
+  animation: waveAnim 0.6s forwards;
+  z-index: 3;
+}
+@keyframes waveAnim {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+/* Khi hover thẻ home */
+#home:hover .wave {
+  width: 400px;
+  height: 400px;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+/* Nội dung */
+.home-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+#home h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: #d0a933;
+  margin-bottom: 12px;
+}
+
+#home p {
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 24px;
+}
+
+.buttons .btn {
+  border: 1px solid #d0a933;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 4px;
+  color: #d0a933;
+  transition: 0.3s;
+}
+
+.buttons .btn:hover {
+  background-color: #d0a933;
+  color: #000;
+}
+
+    /* ---------- About ---------- */
+    /* ====== GRID LAYOUT ====== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+  align-items: start;
+  padding: 40px 0;
+  animation: fadeIn 1.2s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ====== ABOUT LAYOUT ====== */
+.about-grid {
+  display: flex;
+  flex-direction: column; /* chuyển sang dọc: chữ trên, ảnh dưới */
+  align-items: center;
+  text-align: center;
+  gap: 40px;
+  padding: 60px 20px;
+  background: #f9fafc;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin: 60px auto;
+}
+
+/* ====== TEXT AREA ====== */
+.about-text h3 {
+  margin-top: 0;
+  font-size: 40px;
+  font-weight: 700;
+  color: #002b5b;
+  position: relative;
+  display: inline-block;
+}
+
+.about-text h3::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, #d0a933, #f7d600);
+  border-radius: 3px;
+}
+
+.about-text p {
+  color: #333;
+  line-height: 1.8;
+  font-size: 20px;
+  margin-top: 14px;
+  transition: color 0.3s ease;
+}
+
+.about-text p:hover {
+  color: #002b5b;
+}
+
+/* ====== FONT FAMILY ====== */
+#about h2,
+#about h3,
+#about p {
+  font-family: "Playfair Display", serif;
+}
+
+/* ====== HIGHLIGHT ====== */
+.highlight {
+  color: #a60000;
+  font-weight: 600;
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+
+.highlight:hover {
+  color: #d0a933;
+}
+
+/* ====== PORTRAIT IMAGE ====== */
+.about-image {
+  width: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  position: relative;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 43, 91, 0.25), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.about-image:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+}
+
+.about-image:hover::after {
+  opacity: 1;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+
+/* ====== CITY SECTION ====== */
+.city-section {
+  position: relative;
+  width: 100%;
+  max-height: 350px;
+  overflow: hidden;
+  border-radius: 16px;
+  margin-top: 100px;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease;
+  animation: fadeInUp 1s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.city-section img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.city-section:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.15);
+}
+
+/* ====== TEXT OVER CITY IMAGE ====== */
+.city-section .image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  font-size: 56px;
+  font-weight: 900;
+  transition: all 0.4s ease;
+}
+
+.city-section .image-text .shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(0, 0, 0, 0.65);
+  transform: translate(8px, 8px);
+  z-index: 0;
+  transition: all 0.4s ease;
+}
+
+.city-section .image-text .main-text {
+  position: relative;
+  color: #f7d600;
+  z-index: 1;
+  text-shadow: 0 0 12px rgba(247, 214, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+.city-section:hover .image-text .main-text {
+  color: #ffeb7b;
+  text-shadow: 0 0 20px rgba(255, 235, 123, 0.8);
+  transform: translateY(-5px);
+}
+
+.city-section:hover .image-text .shadow {
+  transform: translate(10px, 10px);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ===== ABOUT ADDITIONS ===== */
+
+/* Career Goals */
+.about-block {
+  background: #fff;
+  border-radius: 20px;
+  padding: 50px;
+  margin-top: 80px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.block-title {
+  font-size: 40px;
+  font-weight: 70;
+  color: #1f4b68;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.block-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 70px;
+  height: 4px;
+  background: #d0a933;
+  border-radius: 3px;
+}
+
+.step-text {
+  margin-left: 20px;
+   margin-top: 32px;
+  margin-bottom: 10px;
+}
+
+.step-text h4 {
+  margin: 0 0 6px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.step-text p {
+  margin: 0;
+  color: #444;
+  line-height: 1.6;
+}
+
+
+/* Scroll animation trigger */
+.goal-step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .about-block {
+    padding: 35px;
+  }
+
+}
+
+/* FAVORITE */
+.favorites {
+  margin-top: 60px;
+}
+
+/* Tabs */
+.favorite-tabs {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.fav-tab {
+  background: transparent;
+  border: 2px solid #d0a933;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f4b68;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.fav-tab.active,
+.fav-tab:hover {
+  background: #d0a933;
+  color: #fff;
+}
+
+.favorite-grid {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.favorite-grid.show {
+  display: grid;
+}
+
+/* Card */
+.favorite-card {
+  background: #f9f9f9;
+  padding: 28px;
+  text-align: center;
+  border-radius: 18px;
+  border: 1px solid #eee;
+  transition: 0.3s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-5px);
+  border-color: #8b8b8b;
+  box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+}
+
+.favorite-icon {
+  background: #eee;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  transition: 0.25s ease;
+}
+
+.favorite-card:hover .favorite-icon {
+  transform: scale(1.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .favorite-tabs {
+    gap: 10px;
+  }
+  .favorite-card {
+    padding: 22px;
+  }
+}
+
+    /* ---------- Services / Skills ---------- */
+
+    
+    .school-info {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.school-img {
+    width: 500%;
+    max-width: 500px; 
+    border-radius: 10px;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* đảm bảo ảnh nằm giữa */
+}
+
+.school-name {
+    font-size: 30px;
+    font-weight: 700;
+}
+.school-major {
+    font-size: 25px;
+    opacity: 0.8;
+}
+.school-year {
+    font-size: 25px;
+    opacity: 0.8;
+}
+
+    .services{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    .service{
+      flex:1 1 220px;
+      background:#fff;
+      padding:18px;
+      border-radius:8px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.06);
+      border:1px solid rgba(0,0,0,0.04);
+      transition: all 0.32s ease;
+    }
+    .service:hover{
+      transform: translateY(-8px);
+      box-shadow:0 18px 36px rgba(0,0,0,0.10);
+    }
+   /* SKILLS GENERAL */
+.skills-section {
+  margin-top: 60px;
+}
+
+.skills-title h2 {
+  font-size: 40px; 
+  color: #1b3a57;
+  font-weight: 800;
+}
+
+
+/* WHITE BOX CONTAINER */
+.skills-container {
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  margin-top: 25px;
+}
+
+/* TABS */
+.skills-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  padding: 10px 25px;
+  border: 2px solid #d6a63b;
+  background: transparent;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+  background: #d6a63b;
+  color: #fff;
+}
+
+/* CONTENT DISPLAY */
+.skills-content { display: none; }
+.skills-content.active { display: block; }
+
+/* PROGRESS BARS */
+.skill-row {
+  margin-bottom: 22px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #ececec;
+  border-radius: 10px;
+  margin-top: 7px;
+  overflow: hidden;
+}
+
+.progress-bar div {
+  height: 100%;
+  background: #1b3a57;
+  border-radius: 10px;
+  transition: width 1s ease;
+}
+
+/* SOFT SKILLS PILL STYLE */
+.pill {
+  display: inline-block;
+  background: rgba(0,0,0,0.06);
+  padding: 10px 18px;
+  margin: 6px;
+  border-radius: 25px;
+  font-size: 30px;
+  font-weight: 500;
+}
+/* ===== CERTIFICATE PLACEHOLDER ===== */
+.certificate-placeholder {
+  text-align: center;
+  font-size: 22px;
+  color: #666;
+  background: rgba(0, 43, 91, 0.04);
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px dashed #d6a63b;
+  font-style: italic;
+}
+
+   
+    /* responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns: 1fr 340px;}
+      .hero-title{font-size:56px;}
+      .sidebar{width:300px;}
+      .main{margin-left:300px;}
+    }
+
+    @media (max-width:820px){
+      /* sidebar becomes top bar */
+      .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+        flex-direction:row;
+        align-items:center;
+        padding:14px 16px;
+        border-right:none;
+        border-bottom:1px solid rgba(0,0,0,0.06);
+      }
+      .logo{left:14px; top:8px}
+      .avatar{width:52px; height:52px; border:4px solid rgba(255,255,255,0.06)}
+      .name{font-size:14px}
+      .nav-list{
+        flex-direction:row;
+        gap:8px;
+        margin-left:12px;
+        justify-content:flex-end;
+        flex:1;
+        align-items:center;
+      }
+      .main{margin-left:0; padding:20px;}
+      .hero{grid-template-columns:1fr; gap:20px;}
+      .hero-title{font-size:38px}
+      .hero-right{order:-1}
+      .about-grid{grid-template-columns:1fr; }
+      .contact-grid{grid-template-columns:1fr; }
+      .section{margin-bottom:48px}
+    }
+
+    .section-title{
+      display:flex; align-items:center; gap:12px; margin-bottom:18px;
+    }
+    .section-title h2{margin:0; font-size:22px}
+    .muted{color:var(--muted)}
+
+    /* scroll-top */
+    .scroll-top{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      background:var(--menu-bg);
+      color:var(--menu-text);
+      padding:10px 12px;
+      border-radius:999px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.15);
+      display:none;
+      z-index:70;
+      cursor:pointer;
+      font-weight:700;
+      border: none;
+    }
+    .scroll-top.show{display:block}
+
+   /* ==========================
+   FIXED OVERRIDES for SKILLS AREA ✅
+   ========================== */
+
+/* Title */
+.section-title.skills-title h2,
+.skills-title h2 {
+  font-size: 40px !important;
+  color: #1b3a57 !important;
+  font-weight: 800 !important;
+}
+
+/* Skill label text */
+.skills-container .skill-row > span {
+  display: block;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1b3a57 !important;
+  margin-bottom: 8px;
+}
+
+/* Soft skills */
+.pill {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  padding: 10px 22px !important;
+  color: #1b3a57 !important;
+}
+
+/* Tab button text */
+.tab-btn {
+  font-size: 17px !important;
+}
+
+/* Progress bar visuals */
+.progress-bar {
+  height: 12px !important;
+  border-radius: 10px !important;
+  background: #ececec !important;
+}
+
+/* Reset default width */
+.progress-bar > div {
+  width: 0;
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#1b3a57,#3a6f9a);
+  transition: width 1s ease;
+}
+
+/* Khi content active → width trả về inline width */
+.skills-content.active .progress-bar > div {
+  width: var(--target-width);
+}
+
+/* Responsive */
+@media (max-width: 820px) {
+  .skills-container .skill-row > span { font-size: 16px !important; }
+  .pill { font-size: 16px !important; }
+}
+
+/* PROJECT SECTION */
+.projects {
+  padding: 80px 8%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
+}
+.projects .heading {
+  font-size: 40px;       
+  font-weight: 700;
+  color: #1b3a57;
+  margin-bottom: 1.5rem;
+}
+
+/* Grid layout */
+.project-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+/* Each white project card */
+.project-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.4s ease;
+  position: relative;
+  color: #000;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.25);
+}
+
+/* Image styling */
+.project-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-img img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img img {
+  transform: scale(1.05);
+}
+
+/* Project number badge */
+.project-number {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: linear-gradient(135deg, #a60000, #fff);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(255, 0, 64, 0.4);
+}
+
+/* Text content */
+.project-content {
+  padding: 1.8rem;
+  text-align: left;
+}
+
+.project-content h3 {
+  font-size: 1.3rem;
+  color: var(--main-color);
+  margin-bottom: 10px;
+}
+
+.project-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+.project-content strong {
+  color: var(--main-color);
+  font-weight: 600;
+}
+
+/* Tech tags */
+.tech-tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tags span {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--main-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.tech-tags span:hover {
+  background: var(--main-color);
+  color: #fff;
+}
+
+/* SECTION CONTACT */
+.contact {
+  padding: 80px 8%;
+  background: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
+}
+
+/* Tiêu đề Contact */
+.contact .heading {
+  font-size: 40px;
+  font-weight: 700;
+  color: #0b1b2a; /* xanh đen */
+  font-family: var(--font-main);
+}
+
+/* Layout 2 cột */
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 3rem;
+  align-items: start;
+}
+
+/* Ô trắng bo tròn riêng biệt */
+.contact-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 35px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Thông tin bên trái */
+.contact-info {
+  text-align: left;
+}
+
+.contact-details p {
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-main);
+}
+
+.contact-details p i {
+  color: var(--main-color);
+  font-size: 1.4rem;
+}
+
+/* Icon mạng xã hội */
+.contact-socials {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-socials a {
+  font-size: 1.6rem;
+  color: var(--main-color);
+  transition: all 0.3s ease;
+}
+
+.contact-socials a:hover {
+  color: #000;
+  transform: translateY(-4px) scale(1.1);
+}
+
+/* Form bên phải */
+.contact-form {
+  text-align: left;
+}
+
+.input-box {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #000;
+  font-size: 0.95rem;
+  font-family: var(--font-main);
+  transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--main-color);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form textarea {
+  resize: none;
+  min-height: 150px;
+}
+
+/* Nút gửi */
+.btn {
+  display: inline-block;
+  background: var(--main-color);
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-main);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px var(--main-color);
+}
+
+/* Hiệu ứng xuất hiện */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+  }
+}
+/* ====== SLIDESHOW / CAROUSEL ====== */
+.about-carousel {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+}
+
+.carousel-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+  border-radius: 12px;
+}
+
+.carousel-img.active {
+  display: block;
+}
+
+/* ====== MŨI TÊN ĐIỀU HƯỚNG ====== */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 43, 91, 0.6);
+  color: white;
+  border: none;
+  font-size: 28px;
+  padding: 10px 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 5;
+}
+
+.arrow:hover {
+  background-color: rgba(208, 169, 51, 0.8);
+}
+
+.arrow.left {
+  left: 10px;
+}
+
+.arrow.right {
+  right: 10px;
+}
+
+
+/* ===== Hiệu ứng nổi khi hover cho từng card riêng ===== */
+.contact-card,
+.contact-form,
+.project-card,
+.skills-container,
+.about-block,
+.about-grid,
+.about-carousel {
+  transition: all 0.4s ease;
+}
+
+/* Hover vào từng khối riêng */
+.contact-card:hover,
+.contact-form:hover,
+.project-card:hover,
+.skills-container:hover,
+.about-block:hover,
+.about-grid:hover,
+.about-carousel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+  </style>
+</head>
+<body> 
+
+  <div class="container">
+    <div class="logo">minhthu.</div>
+
+    <aside class="sidebar" aria-label="Sidebar">
+
+    
+
+      <nav>
+        <ul class="nav-list" role="navigation">
+          <li><a href="#home" class="nav-link active">HOME</a></li>
+          <li><a href="#about" class="nav-link">ABOUT</a></li>
+          <li><a href="#skills" class="nav-link">SKILLS</a></li>
+          <li><a href="#project" class="nav-link">PROJECT</a></li>
+          <li><a href="#contact" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">© 2025 Minh Thư</div>
+    </aside>
+
+    <main class="main">
+     <!-- HOME SECTION -->
+<section id="home">
+  <div class="home-content">
+    <div class="eyebrow">Hello, I am</div>
+    <h1>LÊ NGUYỄN MINH THƯ.</h1>
+    <p>“An IT student passionate about web development and UI design.”</p>
+
+    <div class="buttons">
+      <a class="btn" href="#about">View Portfolio</a>
+      <a class="btn" href="#contact">Contact Me</a>
+    </div>
+  </div>
+ 
+</section>
+
+     <!-- ABOUT -->
+<section id="about" class="section reveal" aria-label="About section">
+  <div class="section-title">
+    <h2>About</h2><span class="muted">— Who am I</span>
+  </div>
+
+<!-- Phần INFORMATION -->
+<section id="about">
+  <div class="about-grid">
+    <!-- Văn bản nằm trên -->
+    <div class="about-text">
+      <h3>INFORMATION</h3>
+
+      <p>
+        I was born and raised in <span class="highlight">Ho Chi Minh City, Vietnam</span>, 
+        and I’m currently <span class="highlight">20 years old</span>.
+      </p>
+      <p>
+        I always try to <span class="highlight">keep myself updated</span> with the latest technologies 
+        and trends because I believe that 
+        <span class="highlight">continuous learning is the key to growth</span> 
+        in this fast-changing world.
+      </p>
+      <p>
+        If I had to describe my biggest strength, it would be my 
+        <span class="highlight">diligence</span>.
+      </p>
+    </div>
+
+    <!-- Ảnh nằm dưới -->
+    <!-- Ảnh nằm dưới, có slideshow -->
+<div class="about-carousel">
+  <button class="arrow left" onclick="prevImage()">&#10094;</button>
+
+  <div class="carousel-container">
+    <img src="images/avatar1.jpg" class="carousel-img active" alt="Photo 1">
+    <img src="images/avatar2.jpg" class="carousel-img" alt="Photo 2">
+    <img src="images/avatar3.jpg" class="carousel-img" alt="Photo 3">
+    <img src="images/avatar4.jpg" class="carousel-img" alt="Photo 4">
+  </div>
+
+  <button class="arrow right" onclick="nextImage()">&#10095;</button>
+</div>
+
+</section>
+
+
+<!-- Ảnh city nằm bên dưới -->
+<div class="city-section">
+  <img src="images/hometown.webp" alt="my hometown">
+  <div class="image-text">
+    <span class="shadow">HỒ CHÍ MINH CITY</span>
+    <span class="main-text">HỒ CHÍ MINH CITY</span>
+  </div>
+</div>
+
+  <!-- Phần CAREER GOALS -->
+<div class="about-block goals">
+  <h3 class="block-title">GOALS</h3>
+  <div class="goal-ladder">
+
+    <div class="goal-step">
+      <div class="step-text">
+        <h4>Solid Frontend Foundation</h4>
+        <p>Master HTML, CSS, JavaScript and core programming concepts.</p>
+      </div>
+    </div>
+
+    <div class="goal-step">
+    
+      <div class="step-text">
+        <h4>Design-Driven Mindset</h4>
+        <p>Create intuitive, user-focused digital experiences.</p>
+      </div>
+    </div>
+
+    <div class="goal-step">
+      <div class="step-text">
+        <h4>Full-Stack Growth</h4>
+        <p>Expand backend skills: APIs, databases, security, scalable systems.</p>
+      </div>
+    </div>
+
+    <div class="goal-step">
+      <div class="step-text">
+        <h4>Professional Excellence</h4>
+        <p>Join real-world projects, collaborations to grow as a creative developer.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Phần FAVORITE --> 
+<!-- FAVORITE Section -->
+<div class="about-block favorites">
+  <h3 class="block-title">FAVORITE</h3>
+
+  <div class="favorite-tabs">
+    <button class="fav-tab active" data-target="entertainment">Entertainment</button>
+    <button class="fav-tab" data-target="selfgrowth">Self-growth</button>
+  </div>
+
+  <!-- Entertainment -->
+  <div id="entertainment" class="favorite-grid show">
+    <div class="favorite-card"><div class="favorite-icon">👗</div><h4>Fashion</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">📸</div><h4>Photography</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">🎧</div><h4>Music</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">🎬</div><h4>Film</h4></div>
+  </div>
+
+  <!-- Self-growth -->
+  <div id="selfgrowth" class="favorite-grid">
+    <div class="favorite-card"><div class="favorite-icon">📝</div><h4>Journaling</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">📚</div><h4>Reading</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">💻</div><h4>Coding</h4></div>
+    <div class="favorite-card"><div class="favorite-icon">🏋️</div><h4>Gym</h4></div>
+  </div>
+</div>
+
+
+      <section id="skills" class="section reveal" aria-label="Skills section">
+
+ <!-- SKILLS SECTION -->
+<section id="skills" class="skills-section reveal" aria-label="Skills section">
+
+  <div class="school-info animate-box" data-animate-effect="fadeInUp">
+    <img src="images/uth.jpg" alt="My University" class="school-img">
+    <h3 class="school-name">University of Transport Ho Chi Minh City</h3>
+    <p class="school-major">Major: Information Technology</p>
+    <p class="school-year">Academic year: 2023 - present</p>
+  </div>
+
+  <div class="section-title skills-title">
+    <h2>SKILLS</h2>
+  </div>
+
+  <div class="skills-container">
+
+    <!-- TAB BUTTONS -->
+    <div class="skills-tabs">
+      <button class="tab-btn active" data-tab="hard">Hard Skills</button>
+      <button class="tab-btn" data-tab="soft">Soft Skills</button>
+      <button class="tab-btn" data-tab="certificate">Certificate</button>
+    </div>
+
+    <!-- HARD SKILLS -->
+    <div class="skills-content active" id="hard">
+      <div class="skill-row">
+        <span>Frontend: HTML, CSS, JavaScript, ReactJS, Figma</span>
+        <div class="progress-bar">
+          <div style="--target-width: 85%"></div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span>Backend: Java, Spring Boot, NodeJS</span>
+        <div class="progress-bar">
+          <div style="--target-width: 70%"></div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span>Database: MySQL</span>
+        <div class="progress-bar">
+          <div style="--target-width: 75%"></div>
+        </div>
+      </div>
+
+      <div class="skill-row">
+        <span>Tools: Git, Docker, Linux</span>
+        <div class="progress-bar">
+          <div style="--target-width: 65%"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOFT SKILLS -->
+    <div class="skills-content" id="soft">
+      <div class="pill">Communication (English, Vietnamese)</div>
+      <div class="pill">Teamwork</div>
+      <div class="pill">Adaptability</div>
+      <div class="pill">Problem-Solving</div>
+      <div class="pill">Time Management</div>
+    </div>
+
+    <!-- CERTIFICATE -->
+    <div class="skills-content" id="certificate">
+      <p class="certificate-placeholder">📜 Currently updating certificate information...</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+     <!-- PROJECT SECTION -->
+<section class="projects" id="project">
+  <div class="main-text">
+    <h2 class="heading"><span>PROJECTS</span></h2>
+  </div>
+
+  <div class="project-container">
+    <!-- Project 1 -->
+    <div class="project-card">
+      <div class="project-img">
+        <img src="images/portfolio.jpg" alt="Portfolio Website">
+        <span class="project-number">01</span>
+      </div>
+      <div class="project-content">
+        <h3>Portfolio Website</h3>
+        <p>
+          A modern personal portfolio website featuring a clean design, fully responsive layout, 
+          and smooth animation effects for an engaging user experience.
+        </p>
+        <div class="tech-tags">
+          <span>HTML5</span>
+          <span>CSS3</span>
+          <span>JavaScript</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card">
+      <div class="project-img">
+        <img src="images/cm.jpg" alt="Carbon Credit Marketplace">
+        <span class="project-number">02</span>
+      </div>
+      <div class="project-content">
+        <h3>Carbon Credit Marketplace</h3>
+        <p>
+          <strong>GitHub:</strong>  
+          An open-source web platform designed for electric vehicle (EV) owners to earn, trade, 
+          and manage carbon credits through eco-friendly activities.
+        </p>
+        <p>
+          <strong>Description:</strong>  
+          The system allows users to track their carbon footprint reduction and exchange credits 
+          to support sustainable initiatives within the community.
+        </p>
+        <p>
+          <strong>Role:</strong> Team Leader, Full-stack Developer
+        </p>
+        <p>
+          <strong>Goal:</strong> Promote environmental awareness and encourage sustainable transportation 
+          through digital carbon credit management.
+        </p>
+        <div class="tech-tags">
+          <span>Java 21</span>
+          <span>Spring Boot 3.2.0</span>
+          <span>Maven</span>
+          <span>MySQL 8.0</span>
+          <span>Docker</span>
+          <span>Flyway</span>
+          <span>Lombok</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- CONTACT SECTION -->
+<section class="contact" id="contact">
+  <div class="main-text">
+    <h2 class="heading">CONTACT</h2>
+  </div>
+
+  <div class="contact-container">
+    <!-- Cột bên trái -->
+    <div class="contact-card">
+      <div class="contact-info">
+        <div class="contact-details">
+          <p><i class="bx bx-envelope"></i> <strong>Email:</strong> lnmt0018@ut.edu.vn</p>
+          <p><i class="bx bxl-github"></i> <strong>GitHub:</strong> thulnm0018-code</p>
+          <p><i class="bx bx-map"></i> <strong>Address:</strong> 12 District, Hiep Binh, Thu Duc City</p>
+        </div>
+
+        <div class="contact-socials">
+          <a href="mailto:lnmt0018@ut.edu.vn"><i class="bx bx-envelope"></i></a>
+          <a href="https://github.com/thulnm0018-code" target="_blank"><i class="bx bxl-github"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cột bên phải -->
+    <div class="contact-card">
+      <form class="contact-form" action="#">
+        <div class="input-box">
+          <input type="text" placeholder="Full Name" required>
+          <input type="email" placeholder="Email Address" required>
+        </div>
+        <textarea cols="30" rows="8" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+
+    </main>
+  </div>
+
+  <button id="scrollTop" class="scroll-top" aria-label="Go to top">↑</button>
+  
+
+  <script>
+   
+  let currentIndex = 0;
+  const images = document.querySelectorAll('.carousel-img');
+
+  function showImage(index) {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
+
+
+    // Highlight nav based on section in view (IntersectionObserver)
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -40% 0px',
+      threshold: 0
+    };
+
+    function onIntersect(entries) {
+      entries.forEach(entry => {
+        const id = entry.target.getAttribute('id');
+        const link = document.querySelector('.nav-link[href="#' + id + '"]');
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          if (link) link.classList.add('active');
+        }
+      });
+    }
+
+    const observer = new IntersectionObserver(onIntersect, observerOptions);
+    sections.forEach(section => observer.observe(section));
+
+    // Reveal animations on scroll (for elements with .reveal)
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+      revealElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < windowHeight - 100) {
+          el.classList.add('revealed');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Scroll-to-top button
+    const scrollTopBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) scrollTopBtn.classList.add('show');
+      else scrollTopBtn.classList.remove('show');
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Smooth initial hash scroll (if there is a hash on load)
+    if (location.hash) {
+      const target = document.querySelector(location.hash);
+      if (target) setTimeout(() => target.scrollIntoView({behavior:'smooth'}), 50);
+    }
+
+    // Ensure anchor links don't get underlined and keep color from .btn
+    document.querySelectorAll('a').forEach(a => {
+      a.style.textDecoration = 'none';
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const home = document.getElementById('home');
+
+    home.addEventListener('mousemove', e => {
+        const wave = document.createElement('div');
+        wave.classList.add('wave');
+
+        // Lấy vị trí chuột trong thẻ home
+        const rect = home.getBoundingClientRect();
+        wave.style.left = e.clientX - rect.left + 'px';
+        wave.style.top = e.clientY - rect.top + 'px';
+
+        home.appendChild(wave);
+
+        // Xóa div sau khi animation kết thúc
+        wave.addEventListener('animationend', () => {
+            wave.remove();
+        });
+    });
+});
+
+// Scroll reveal for GOALS
+const goalSteps = document.querySelectorAll('.goal-step');
+
+const goalObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+goalSteps.forEach(step => goalObserver.observe(step));
+
+document.addEventListener("DOMContentLoaded", function() {
+  const tabs = document.querySelectorAll(".fav-tab");
+  const grids = document.querySelectorAll(".favorite-grid");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+
+      grids.forEach(grid => grid.classList.remove("show"));
+      document.getElementById(tab.dataset.target).classList.add("show");
+    });
+  });
+});
+
+const tabBtns = document.querySelectorAll(".tab-btn");
+const contents = document.querySelectorAll(".skills-content");
+
+// Function apply animation
+function animateBars(activeContent) {
+  const bars = activeContent.querySelectorAll(".progress-bar > div");
+  bars.forEach(bar => {
+    const width = getComputedStyle(bar).getPropertyValue("--target-width");
+    bar.style.width = width;
+  });
+}
+
+// Default animate first tab
+animateBars(document.getElementById("hard"));
+
+tabBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    tabBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    contents.forEach(c => {
+      c.classList.remove("active");
+      c.querySelectorAll(".progress-bar > div")
+       .forEach(bar => bar.style.width = "0"); // reset
+    });
+
+    const tab = document.getElementById(btn.dataset.tab);
+    tab.classList.add("active");
+
+    setTimeout(() => animateBars(tab), 150);
+  });
+});
+
+
+  </script>
+</body>
+</html>
+
+
