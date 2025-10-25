@@ -1,0 +1,204 @@
+﻿/* =================================================================== */
+/* ============= SECTION: LỘ TRÌNH SỰ NGHIỆP (TIMELINE) ============== */
+/* =================================================================== */
+
+.roadmap-section {
+    padding: 100px 20px;
+    position: relative;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- Đường kẻ dọc của Timeline --- */
+/* Đường nền màu xám */
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background-color: #374151; /* Màu xám đậm */
+}
+/* Đường tiến trình màu xanh "axit" */
+.timeline-progress {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 0; /* Ban đầu chiều cao là 0 */
+    background-color: #34D399;
+    transition: height 0.1s linear; /* Hiệu ứng mượt khi cuộn */
+}
+
+/* --- Các item trên Timeline --- */
+.timeline-item {
+    position: relative;
+    margin-bottom: 80px;
+    width: 50%;
+}
+    /* Đẩy các item chẵn sang bên phải */
+    .timeline-item:nth-child(even) {
+        left: 50%;
+    }
+    /* Đẩy các item lẻ sang bên trái */
+    .timeline-item:nth-child(odd) {
+        padding-right: 30px; /* Tạo khoảng cách với đường kẻ */
+    }
+
+    .timeline-item:nth-child(even) {
+        padding-left: 30px; /* Tạo khoảng cách với đường kẻ */
+    }
+
+/* --- Cột mốc hình tròn --- */
+.timeline-marker {
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #111827;
+    border: 3px solid #34D399;
+    z-index: 2;
+    /* Hiệu ứng ban đầu */
+    transform: scale(0);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timeline-item:nth-child(odd) .timeline-marker {
+    right: -10px; /* Căn vào đường kẻ */
+}
+
+.timeline-item:nth-child(even) .timeline-marker {
+    left: -10px; /* Căn vào đường kẻ */
+}
+
+/* --- Thẻ thông tin --- */
+/* --- Thẻ thông tin --- */
+.timeline-card {
+    /* Nền gradient tinh tế thay vì màu phẳng */
+    background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(30, 41, 59, 0.4));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden; /* Cần thiết cho hiệu ứng glow */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    /* Hiệu ứng ban đầu */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease; /* Áp dụng transition cho tất cả thuộc tính */
+}
+
+    /* === HIỆU ỨNG HOVER NÂNG CAO === */
+    .timeline-card:hover {
+        border-color: rgba(52, 211, 153, 0.5); /* Viền chuyển sang màu "axit" */
+        transform: translateY(-5px) !important; /* Nhấc thẻ lên cao hơn */
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+.timeline-item:nth-child(odd) {
+    text-align: left;
+}
+/* Luôn căn trái cho dễ đọc */
+.timeline-item:nth-child(even) {
+    text-align: left;
+}
+
+/* --- Header của thẻ (Icon + Tiêu đề) --- */
+.timeline-card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .timeline-card-header i {
+        font-size: 1.8rem;
+        color: #34D399; /* Màu xanh "axit" */
+        text-shadow: 0 0 10px rgba(52, 211, 153, 0.5);
+    }
+
+    .timeline-card-header h4 {
+        font-family: 'Source Code Pro', monospace;
+        color: #E5E7EB;
+        font-size: 1.5rem;
+        margin: 0; /* Reset margin */
+    }
+
+.timeline-date {
+    display: block;
+    color: #9CA3AF;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.timeline-card p {
+    color: #D1D5DB;
+    line-height: 1.7;
+    margin: 0;
+}
+/* === LỚP CSS KÍCH HOẠT HIỆU ỨNG BẰNG JS === */
+.timeline-item.is-visible .timeline-marker {
+    transform: scale(1);
+}
+
+.timeline-item.is-visible .timeline-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+@media(max-width: 768px) {
+    /* --- SỬA LỖI RESPONSIVE CHO LỘ TRÌNH SỰ NGHIỆP --- */
+    .roadmap-section {
+        padding: 80px 20px;
+    }
+
+    /* Di chuyển trục thời gian từ giữa sang hẳn bên trái */
+    .timeline-line,
+    .timeline-progress {
+        left: 10px;
+        transform: none;
+    }
+
+    /* Chuyển tất cả item sang layout 1 cột */
+    .timeline-item,
+    .timeline-item:nth-child(even) {
+        width: 100%;
+        left: 0;
+        padding-left: 45px; /* Tạo khoảng trống cho trục thời gian */
+        padding-right: 0;
+    }
+
+        /* Đặt lại vị trí cột mốc cho khớp với trục mới */
+        .timeline-item .timeline-marker,
+        .timeline-item:nth-child(odd) .timeline-marker,
+        .timeline-item:nth-child(even) .timeline-marker {
+            left: 1px; /* Đặt cột mốc nằm trên trục */
+            top: 5px; /* Căn chỉnh lại theo chiều dọc */
+        }
+
+        /* Đảm bảo tất cả thẻ đều căn lề trái */
+        .timeline-item:nth-child(odd),
+        .timeline-item:nth-child(even) {
+            text-align: left;
+        }
+
+        /* Đồng bộ hiệu ứng trượt vào từ bên phải cho mobile */
+        .timeline-item:nth-child(odd),
+        .timeline-item:nth-child(even) {
+            transform: translateX(30px); /* Ban đầu, tất cả đều lệch sang phải */
+        }
+
+        .timeline-item.is-visible {
+            transform: translateX(0); /* Trượt về vị trí 0 khi hiện ra */
+        }
+}

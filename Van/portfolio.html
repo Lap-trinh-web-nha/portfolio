@@ -620,6 +620,224 @@
             }
         }
         /* // Animation nhấp nháy nhẹ của ngôi sao */
+        /* Layout mới cho section có ảnh và text 50/50 */
+        .section-with-image-layout {
+            display: flex;
+            align-items: flex-start; 
+            gap: 2.5rem; /* Khoảng cách giữa text và ảnh */
+        }
+        .section-with-image-layout .section-text-content {
+            flex: 1; /* Chiếm 1 phần */
+            min-width: 0; /* Cần thiết cho flexbox */
+        }
+        .section-with-image-layout .section-image-content {
+            flex: 1; /* Chiếm 1 phần */
+            min-width: 0;
+        }
+        .section-with-image-layout .section-image-content > img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px; /* Bo góc giống card */
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); /* Đổ bóng nhẹ */
+        }
+
+        /* Định dạng cho "Keyword Tags" */
+        .keyword-container {
+            display: flex;
+            flex-wrap: wrap; /* Cho phép các tag xuống dòng */
+            margin: 1rem 0; /* Khoảng cách trên dưới */
+            gap: 0.6rem; /* Khoảng cách giữa các tag */
+        }
+        .keyword-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem; /* Độ lớn của tag */
+            border-radius: 20px; /* Bo tròn (pill shape) */
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: var(--font-family-body);
+            background-color: rgba(243, 129, 129, 0.1); /* Màu nền hồng nhạt, trong suốt */
+            color: var(--accent-color-1); /* Màu chữ cam san hô */
+            border: 1px solid rgba(243, 129, 129, 0.2);
+            transition: all 0.3s ease;
+        }
+        .keyword-tag:hover {
+            background-color: var(--accent-color-1);
+            color: var(--light-bg);
+            transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+        }
+
+        /* ----- CSS MỚI CHO SLIDER SỞ THÍCH ----- */
+        .hobby-slider-container {
+            position: relative;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .hobby-slider-viewport {
+            width: 100%;
+            overflow: hidden; /* Đây là chìa khóa để ẩn các ảnh khác */
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .hobby-slider-track {
+            display: flex;
+            width: 500%; /* 100% * 5 ảnh */
+            transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+        }
+        .hobby-slider-track img {
+            width: 20%; /* 100% / 5 ảnh */
+            height: auto;
+            aspect-ratio: 4 / 3; /* Giữ tỷ lệ 4:3 cho đồng đều */
+            object-fit: contain;
+            background-color: var(--light-bg); 
+            display: block;
+            /* Ghi đè lại box-shadow/border-radius từ .section-image-content img */
+            border-radius: 0; 
+            box-shadow: none;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color-2);
+            font-family: var(--font-family-body);
+            line-height: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .slider-btn:hover {
+            background-color: var(--light-bg);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-btn.prev {
+            left: 10px;
+        }
+        .slider-btn.next {
+            right: 10px;
+        }
+        /* --- KẾT THÚC KHỐI CSS MỚI --- */
+
+
+        /* ===== BẮT ĐẦU BLOCk CSS CHO RESPONSIVE (MOBILE) ===== */
+        @media (max-width: 768px) {
+            
+            /* 1. Cho phép cuộn trang */
+            body {
+                overflow-y: auto; /* QUAN TRỌNG NHẤT: Cho phép cuộn */
+                overflow-x: hidden; /* Ngăn cuộn ngang */
+            }
+            .portfolio-container {
+                height: auto; /* Cho phép container co giãn theo nội dung */
+                width: 100%;
+            }
+
+            /* 2. Hủy bỏ hiệu ứng trượt ngang, xếp mọi thứ theo chiều dọc */
+            .landing-screen {
+                position: relative; /* Hủy 'absolute' */
+                height: 100vh; /* Giữ màn hình chào 100vh */
+                flex-direction: column-reverse; /* Đảo ngược: avatar lên trên, chữ xuống dưới */
+            }
+            .discovery-page {
+                position: relative; /* Hủy 'absolute' */
+                flex-direction: column; /* Xếp cột trái và phải theo chiều dọc */
+                height: auto;
+                transform: none !important; /* Hủy bỏ transform ẩn trang */
+            }
+
+            /* 3. Tinh chỉnh màn hình chào (Landing) */
+            .landing-avatar {
+                flex: 1;
+                width: 100%;
+                border-radius: 0 0 40vw 40vw; /* Bo tròn chỉ 2 góc dưới */
+            }
+            .avatar-image-placeholder {
+                width: 220px;
+                height: 220px; /* Thu nhỏ avatar */
+            }
+            .next-icon {
+                display: none; /* Ẩn nút mũi tên, người dùng sẽ cuộn */
+            }
+            .landing-info {
+                flex: 1;
+                padding: 2rem;
+                align-items: center; /* Căn giữa chữ */
+                text-align: center;
+                padding-left: 2rem; /* Reset padding */
+            }
+            .landing-info h1 {
+                font-size: 3rem; /* Thu nhỏ chữ */
+            }
+            .landing-info p {
+                font-size: 1.2rem;
+            }
+            .waves-container {
+                height: 150px; /* Giảm chiều cao sóng */
+            }
+
+            /* 4. Tinh chỉnh trang thông tin (Discovery) */
+            .discovery-left {
+                flex: none; /* Hủy flex-grow */
+                width: 100%;
+                border-radius: 0 0 40vw 40vw; /* Bo tròn 2 góc dưới */
+                padding: 3rem 1rem 2rem 1rem;
+            }
+            .back-icon {
+                display: none; /* Ẩn nút quay lại */
+            }
+            .id-card {
+                width: 240px;
+                height: 380px; /* Thu nhỏ card */
+            }
+            .discovery-right {
+                flex: 1;
+                width: 100%;
+                overflow-y: visible; /* Hủy cuộn nội bộ, để cả trang cuộn */
+            }
+            .discovery-right .content-wrapper {
+                padding: 3rem 1.5rem; /* Giảm padding */
+            }
+
+            /* 5. Tinh chỉnh các section nội dung */
+            .content-section {
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .content-section h3 {
+                font-size: 1.5rem;
+            }
+            /* Xếp chồng layout 50/50 (Thông tin, Sở thích) */
+            .section-with-image-layout {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .skill-item {
+                width: 100%; /* Kỹ năng 1 cột */
+            }
+            .counters-section {
+                padding: 3rem 1.5rem;
+                background-attachment: scroll; /* Tắt hiệu ứng parallax (fixed) trên mobile */
+            }
+            .counters-container {
+                flex-direction: column; /* Xếp chồng các counter */
+                gap: 2rem;
+            }
+            .thumbnail-container {
+                grid-template-columns: repeat(2, 1fr); /* 2 ảnh thumbnail 1 hàng */
+            }
+        }
+        /* ===== KẾT THÚC BLOCK CSS CHO RESPONSIVE ===== */
+
     </style>
 </head>
 <body>
@@ -631,7 +849,7 @@
         <div class="landing-info">
             <div class="text-content">
                 <h1>Huỳnh Khánh Vân</h1>
-                <p>Front-end Developer</p>
+                <p>Back-end Developer</p>
             </div>
             <div class="waves-container">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -678,16 +896,19 @@
 
         <div class="discovery-right" id="discoveryRight">
             <div class="content-wrapper">
-                <section id="info" class="content-section section-with-icon">
-                    <div class="section-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                    </div>
-                    <div class="section-text">
+
+                <section id="info" class="content-section section-with-image-layout">
+                    <div class="section-text-content">
                         <h3>Thông tin cá nhân</h3>
-                        <p><strong>Họ và tên:</strong> Huỳnh Khánh Vân</p>
-                        <p><strong>Ngày sinh:</strong> 22/02/2005</p>
-                        <p><strong>Trường:</strong> Đại học Giao Thông Vận Tải TP.HCM</p>
-                        <p>Hành trình của mình với Công nghệ Thông tin là một cuộc khám phá đầy bất ngờ. Xuất phát điểm không phải là đam mê, nhưng chính những thử thách và logic trong từng dòng code sau năm học đầu tiên đã khơi dậy trong tôi một sự hứng thú mãnh liệt. Tôi nhận ra mình say mê việc <strong>'xây dựng'</strong> - biến những ý tưởng vô hình thành các sản phẩm số có giao diện đẹp mắt và tương tác mượt mà.</p>
+                        <div class="keyword-container">
+                            <span class="keyword-tag">Huỳnh Khánh Vân</span>
+                            <span class="keyword-tag">22/02/2005</span>
+                            <span class="keyword-tag">ĐH GTVT TP.HCM</span>
+                        </div>
+                        <p style="margin-top: 1rem;">Hành trình của mình với CNTT là một cuộc khám phá đầy bất ngờ. Say mê việc <strong>'xây dựng'</strong> - biến những ý tưởng vô hình thành các sản phẩm số có giao diện đẹp mắt và tương tác mượt mà.</p>
+                    </div>
+                    <div class="section-image-content">
+                        <img src="static/personal-info-image.jpg" alt="Ảnh cá nhân" style="aspect-ratio: 1 / 1; object-fit: cover;">
                     </div>
                 </section>
 
@@ -697,34 +918,45 @@
                     </div>
                     <div class="section-text">
                         <h3>Mục tiêu nghề nghiệp</h3>
-                        <p>Tìm kiếm cơ hội thực tập vị trí Front-end Developer để áp dụng kiến thức về HTML, CSS, và JavaScript vào các dự án thực tế. Mong muốn được học hỏi, phát triển kỹ năng với các framework hiện đại và đóng góp vào việc xây dựng những sản phẩm có trải nghiệm người dùng xuất sắc.</p>
-                    </div>
-                </section>
-
-                <section id="hobby" class="content-section section-with-icon">
-                    <div class="section-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                    </div>
-                    <div class="section-text">
-                        <h3>Sở thích</h3>
-                        <p>Ngoài giờ học, mình dành thời gian cho những đam mê sáng tạo như vẽ minh họa kỹ thuật số (digital painting) và làm đồ thủ công. Mình còn tự tay vận hành một tiệm nhỏ chuyên bán các sản phẩm trang sức handmade do chính mình thiết kế. Bên cạnh đó, chơi guitar cũng đã trở thành một phần không thể thiếu trong cuộc sống hằng ngày của mình. Những sở thích này không chỉ giúp mình nuôi dưỡng tư duy thẩm mỹ mà còn là nguồn cảm hứng sáng tạo trong công việc và học tập.</p>
-                        <div class="main-image-container">
-                            <img src="static/so-thich.jpg" alt="Ảnh sở thích" class="inline-image"
-                                style="
-                                    width: 85%; 
-                                    height: auto;
-                                    border-radius: 20px;
-                                    cursor: pointer;
-                                    display: block;     
-                                    margin-left: auto; 
-                                    margin-right: auto; 
-                                    margin-top: 1.5rem;
-                                    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-                                ">
+                        <div class="keyword-container">
+                            <span class="keyword-tag">Back-end Development</span>
+                            <span class="keyword-tag">HTML / CSS / JS / Java / React</span>
+                            <span class="keyword-tag">Học hỏi Frameworks</span>
+                            <span class="keyword-tag">Clean code / Best Practices</span>
+                            <span class="keyword-tag">CI/CD - DevOps</span>
+                            <span class="keyword-tag">Phát triển Web Application</span>
                         </div>
                     </div>
                 </section>
-                
+
+                <section id="hobby" class="content-section section-with-image-layout">
+                    <div class="section-text-content">
+                        <h3>Sở thích</h3>
+                        <div class="keyword-container">
+                            <span class="keyword-tag">Đồ thủ công, móc len</span>
+                            <span class="keyword-tag">Trang sức Handmade</span>
+                            <span class="keyword-tag">Chơi Guitar</span>
+                            <span class="keyword-tag">Tư duy thẩm mỹ</span>
+                        </div>
+                        <p style="margin-top: 1rem;">Những sở thích này không chỉ giúp mình nuôi dưỡng tư duy thẩm mỹ mà còn là nguồn cảm hứng sáng tạo trong công việc và học tập.</p>
+                    </div>
+                    
+                    <div class="section-image-content">
+                        <div class="hobby-slider-container">
+                            <div class="hobby-slider-viewport">
+                                <div class="hobby-slider-track" id="hobbySliderTrack">
+                                    <img src="static/so-thich-1.jpg" alt="Ảnh sở thích 1">
+                                    <img src="static/so-thich-2.jpg" alt="Ảnh sở thích 2">
+                                    <img src="static/so-thich-3.jpg" alt="Ảnh sở thích 3">
+                                    <img src="static/so-thich-4.jpg" alt="Ảnh sở thích 4">
+                                    <img src="static/so-thich-5.jpg" alt="Ảnh sở thích 5">
+                                </div>
+                            </div>
+                            <button class="slider-btn prev" id="hobbyPrevBtn">&lsaquo;</button>
+                            <button class="slider-btn next" id="hobbyNextBtn">&rsaquo;</button>
+                        </div>
+                    </div>
+                </section>
                 <section id="skills" class="content-section">
                     <h3>Ngôn ngữ & Kỹ năng</h3>
                     <div class="skills-container">
@@ -745,7 +977,7 @@
                             <div class="progress-bar"><div data-width="70%"></div></div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-info"><span>Figma</span><span>55%</span></div>
+                            <div class="skill-info"><span>Python</span><span>75%</span></div>
                             <div class="progress-bar"><div data-width="55%"></div></div>
                         </div>
                         <div class="skill-item">
@@ -845,7 +1077,10 @@
 
         // Hàm để chuyển sang trang thông tin chi tiết
         const switchToDiscoveryPage = () => {
-            portfolioContainer.classList.add('discovery-active');
+            // Chỉ chạy hiệu ứng trượt nếu không phải màn hình mobile
+            if (window.innerWidth > 768) {
+                portfolioContainer.classList.add('discovery-active');
+            }
         };
 
         // Gán sự kiện click cho vùng avatar để chuyển trang
@@ -858,7 +1093,10 @@
 
         // Gán sự kiện click cho nút "back" để quay lại màn hình chào mừng
         backButton.addEventListener('click', () => {
-            portfolioContainer.classList.remove('discovery-active');
+             // Chỉ chạy hiệu ứng trượt nếu không phải màn hình mobile
+            if (window.innerWidth > 768) {
+                portfolioContainer.classList.remove('discovery-active');
+            }
         });
         
         // Gán sự kiện click cho thẻ ID để lật thẻ
@@ -893,8 +1131,11 @@
         };
         
         // Sử dụng IntersectionObserver để phát hiện khi các section được cuộn vào tầm nhìn
-        const sectionObserver = new IntersectionObserver((entries) => {
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
+                // Lấy phần tử gốc để cuộn (hoặc là window nếu là mobile)
+                const scrollRoot = window.innerWidth <= 768 ? null : discoveryRight;
+
                 // Nếu section đi vào viewport
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible'); // Thêm class để kích hoạt animation xuất hiện
@@ -911,9 +1152,16 @@
                     if(entry.target.classList.contains('counters-section')) {
                            animateCounters(); // Gọi hàm chạy hiệu ứng đếm số
                     }
+                    
+                    // Tùy chọn: Dừng theo dõi section này sau khi nó đã xuất hiện
+                    // observer.unobserve(entry.target); 
                 }
             });
-        }, { root: discoveryRight, threshold: 0.2 }); // root: phần tử cuộn là cột phải, threshold: kích hoạt khi 20% section hiện ra
+        }, { 
+            // root: discoveryRight, // Gốc cuộn
+            root: window.innerWidth <= 768 ? null : document.getElementById('discoveryRight'),
+            threshold: 0.2 // Kích hoạt khi 20% section hiện ra
+        });
 
         // Bắt đầu theo dõi tất cả các section
         sections.forEach(section => {
@@ -946,21 +1194,26 @@
 
         // --- Hiệu ứng 3D Parallax cho Avatar khi di chuột ---
         landingAvatar.addEventListener('mousemove', (e) => {
-            const rect = landingAvatar.getBoundingClientRect(); // Lấy kích thước và vị trí của vùng avatar
-            const x = e.clientX - rect.left; // Tọa độ X của chuột bên trong vùng avatar
-            const y = e.clientY - rect.top; // Tọa độ Y của chuột bên trong vùng avatar
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const deltaX = x - centerX; // Khoảng cách từ chuột đến tâm theo trục X
-            const deltaY = y - centerY; // Khoảng cách từ chuột đến tâm theo trục Y
-            const rotateY = (deltaX / centerX) * 15; // Tính góc xoay Y (tối đa 15 độ)
-            const rotateX = -(deltaY / centerY) * 15; // Tính góc xoay X (tối đa 15 độ, có dấu trừ để xoay đúng hướng)
-            avatarImage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; // Áp dụng transform
+            // Chỉ chạy hiệu ứng nếu không phải mobile
+            if (window.innerWidth > 768) {
+                const rect = landingAvatar.getBoundingClientRect(); // Lấy kích thước và vị trí của vùng avatar
+                const x = e.clientX - rect.left; // Tọa độ X của chuột bên trong vùng avatar
+                const y = e.clientY - rect.top; // Tọa độ Y của chuột bên trong vùng avatar
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const deltaX = x - centerX; // Khoảng cách từ chuột đến tâm theo trục X
+                const deltaY = y - centerY; // Khoảng cách từ chuột đến tâm theo trục Y
+                const rotateY = (deltaX / centerX) * 15; // Tính góc xoay Y (tối đa 15 độ)
+                const rotateX = -(deltaY / centerY) * 15; // Tính góc xoay X (tối đa 15 độ, có dấu trừ để xoay đúng hướng)
+                avatarImage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; // Áp dụng transform
+            }
         });
 
         // Trả avatar về vị trí cũ khi chuột rời khỏi
         landingAvatar.addEventListener('mouseleave', () => {
-            avatarImage.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            if (window.innerWidth > 768) {
+                avatarImage.style.transform = 'rotateX(0deg) rotateY(0deg)';
+            }
         });
 
         // --- Chức năng cho bộ sưu tập ảnh dự án ---
@@ -982,6 +1235,41 @@
         // Thiết lập cho cả hai bộ sưu tập ảnh
         setupGallery('mainSynviaImage', 'thumbnailSynviaContainer');
         setupGallery('mainPOSImage', 'thumbnailPOSContainer');
+
+        // ----- JAVASCRIPT MỚI CHO SLIDER SỞ THÍCH -----
+        const hobbySliderTrack = document.getElementById('hobbySliderTrack');
+        const hobbyPrevBtn = document.getElementById('hobbyPrevBtn');
+        const hobbyNextBtn = document.getElementById('hobbyNextBtn');
+        const hobbySlides = hobbySliderTrack.querySelectorAll('img');
+        const totalHobbySlides = hobbySlides.length; // Sẽ là 5
+        const slideWidthPercentage = 100 / totalHobbySlides; // Sẽ là 20%
+        let currentHobbySlide = 0; // Bắt đầu từ ảnh đầu tiên (index 0)
+
+        // Hàm cập nhật vị trí của slider track
+        function updateHobbySlider() {
+            // Di chuyển track bằng cách nhân index hiện tại với % chiều rộng của 1 slide
+            hobbySliderTrack.style.transform = `translateX(-${currentHobbySlide * slideWidthPercentage}%)`;
+        }
+
+        // Bấm nút "Next"
+        hobbyNextBtn.addEventListener('click', () => {
+            currentHobbySlide++; // Tăng index
+            if (currentHobbySlide >= totalHobbySlides) {
+                currentHobbySlide = 0; // Quay về ảnh đầu tiên nếu đang ở ảnh cuối
+            }
+            updateHobbySlider(); // Cập nhật vị trí
+        });
+
+        // Bấm nút "Previous"
+        hobbyPrevBtn.addEventListener('click', () => {
+            currentHobbySlide--; // Giảm index
+            if (currentHobbySlide < 0) {
+                currentHobbySlide = totalHobbySlides - 1; // Đi đến ảnh cuối nếu đang ở ảnh đầu
+            }
+            updateHobbySlider(); // Cập nhật vị trí
+        });
+       
+
     });
 </script>
 </body>

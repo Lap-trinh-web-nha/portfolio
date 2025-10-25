@@ -1,0 +1,121 @@
+/* =================================================================== */
+/* ============== SECTION: NĂNG LỰC KỸ THUẬT (STAGGERED) =============== */
+/* =================================================================== */
+
+.skills-section {
+    padding: 100px 20px;
+    position: relative;
+    background-color: #0c101b; /* Nền tối hơn để làm nổi bật */
+    overflow-x: hidden; /* Ngăn thanh cuộn ngang khi animation */
+}
+
+.skills-showcase-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px; /* Khoảng cách lớn giữa các hàng */
+}
+
+.skill-row {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+    /* --- Bố cục so le cho các hàng chẵn --- */
+    .skill-row:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+/* --- Phần mô tả bên trái/phải --- */
+.skill-desc {
+    flex: 1; /* Chiếm 1 nửa không gian */
+    color: #D1D5DB;
+}
+
+    .skill-desc h3 {
+        font-family: 'Source Code Pro', monospace;
+        font-size: 1.8rem;
+        color: #34D399; /* Màu xanh "axit" */
+        margin-bottom: 15px;
+    }
+
+    .skill-desc p {
+        line-height: 1.7;
+        font-size: 1.05rem;
+    }
+
+/* --- Thẻ chứa các icon --- */
+.skill-icons-card {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 30px;
+    /* Hiệu ứng kính mờ nhất quán */
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+    .skill-icons-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+.skill-icon {
+    width: 65px;
+    height: 65px;
+    padding: 10px;
+    background: rgba(17, 24, 39, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+    .skill-icon:hover {
+        transform: scale(1.15);
+    }
+
+    .skill-icon img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+/* --- Hiệu ứng trượt vào khi cuộn trang --- */
+.skill-row {
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+    .skill-row:nth-child(odd) {
+        transform: translateX(-50px);
+    }
+
+    .skill-row:nth-child(even) {
+        transform: translateX(50px);
+    }
+
+    .skill-row.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+/* --- Responsive --- */
+@media (max-width: 860px) {
+    .skill-row, .skill-row:nth-child(even) {
+        flex-direction: column; /* Xếp dọc trên mobile */
+    }
+
+    .skill-desc {
+        text-align: center;
+    }
+}

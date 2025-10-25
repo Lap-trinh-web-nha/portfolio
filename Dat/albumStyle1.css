@@ -1,0 +1,138 @@
+﻿/* =================================================================== */
+/* ============== SECTION: KHOẢNH KHẮC CÁ NHÂN (ALBUM) =============== */
+/* =================================================================== */
+
+.moments-section {
+    padding: 100px 20px;
+    background-color: #0c101b;
+}
+
+.album-container {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9; /* Giữ tỉ lệ cho album */
+}
+
+.album-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #000;
+}
+
+.album-spread {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 10px; /* "Gáy sách" ở giữa */
+    padding: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s;
+    z-index: 1;
+}
+
+    .album-spread.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+    }
+
+.album-page {
+    flex: 1;
+    height: 100%;
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+    .album-page img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Phép màu tương thích ảnh dọc/ngang */
+    }
+
+/* --- Các nút điều khiển --- */
+.album-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(30, 41, 59, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+    .album-nav:hover {
+        background: #34D399;
+        color: #111827;
+    }
+
+    .album-nav.prev {
+        left: -25px;
+    }
+
+    .album-nav.next {
+        right: -25px;
+    }
+
+/* --- Trục điều hướng chấm tròn --- */
+.album-dots {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.album-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #4B5563;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .album-dot.active {
+        background: #34D399;
+    }
+
+/* --- Responsive cho màn hình nhỏ --- */
+@media (max-width: 768px) {
+    .album-container {
+        width: 100%;
+        aspect-ratio: 4 / 5; /* Tỉ lệ phù hợp hơn cho ảnh dọc */
+    }
+    /* Chỉ hiển thị một trang trên mobile */
+    .album-spread .album-page:last-child {
+        display: none;
+    }
+
+    .album-nav.prev {
+        left: 10px;
+    }
+
+    .album-nav.next {
+        right: 10px;
+    }
+
+    .album-dots {
+        bottom: -30px;
+    }
+}

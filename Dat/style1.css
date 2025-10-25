@@ -18,6 +18,137 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/* =================================================================== */
+/* ============== NAVBAR TỐI GIẢN ================= */
+/* =================================================================== */
+
+/* --- Container chính cho Navbar --- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 75px; /* Chiều cao cố định cho Navbar */
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    background: rgba(30, 41, 59, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.4s ease;
+}
+
+    /* --- Lớp CSS được thêm bằng JS khi cuộn trang --- */
+    .navbar.navbar-scrolled {
+        background-color: rgba(17, 24, 39, 0.9); /* Nền đậm hơn khi cuộn */
+    }
+
+/* --- Container giữ nội dung ở giữa --- */
+.navbar-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* (Các class .nav-logo, .nav-links, .nav-cta, .nav-toggle... giữ nguyên style cũ) */
+.nav-logo a {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #E5E7EB;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+    .nav-links a {
+        color: #D1D5DB; /* <-- MÀU SÁNG HƠN, DỄ ĐỌC HƠN */
+        font-weight: 500; /* <-- TĂNG ĐỘ ĐẬM CỦA CHỮ */
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+        .nav-links a:hover {
+            color: #E5E7EB;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #34D399;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+.nav-cta {
+    background-color: #34D399;
+    color: #111827;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+    .nav-cta:hover {
+        transform: scale(1.05);
+    }
+
+/* (Phần responsive cho hamburger giữ nguyên hoàn toàn) */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: #E5E7EB;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+    .hamburger::before, .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: #E5E7EB;
+        left: 0;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger::before {
+        top: -8px;
+    }
+
+    .hamburger::after {
+        bottom: -8px;
+    }
+
+
+
 
 /* Phan nen background */
 
@@ -69,6 +200,10 @@ body {
     overflow: hidden;
 }
 
+.hero-split-right p {
+    transform: translateY(40px);
+}
+
     /* Video nền nằm trong hero-split-right */
     .hero-split-right video {
         position: absolute;
@@ -83,11 +218,12 @@ body {
 /* Ảnh chân dung */
 .hero-portrait {
     position: relative;
-    max-width: 950px;
-    width: 350%;
+    max-width: 1250px;
+    width: 400%;
     z-index: 1;
     filter: drop-shadow(0 0 15px rgba(0,0,0,0.5));
-    transform: translateX(180px);
+    transform: translateX(100px) translateY(30px);
+    
 }
 
 /* Tiêu đề overlay */
@@ -151,132 +287,22 @@ body {
 }
 
 
-
-/* ======================= SECTION 2: ABOUT ME (Hiệu ứng chồng thẻ) ======================= */
-
-.about-section {
-    /* Giữ nguyên flex để căn giữa container */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    position: relative;
-    /* Bong bóng sẽ nằm dưới container thẻ */
+/* ======================= ĐỊNH DẠNG TIÊU ĐỀ SECTION ======================= */
+.section-title {
+    text-align: center; /* Căn giữa tiêu đề */
+    margin-bottom: 60px; /* Tạo khoảng cách với nội dung bên dưới */
+    position: relative; /* Cần thiết để z-index hoạt động */
+    z-index: 5; /* Đảm bảo tiêu đề luôn nằm trên các nền */
 }
 
-/* --- Container điều khiển hiệu ứng --- */
-.stack-container {
-    width: 90%;
-    max-width: 900px;
-    height: 600px;
-    position: relative; /* Quan trọng để định vị các thẻ con */
-    cursor: pointer;
-}
-
-/* --- Style chung cho cả 2 thẻ --- */
-.stacked-card {
-    position: absolute;
-    width: 100%;
-    height: 80%;
-    padding: 40px;
-    /* Hiệu ứng kính mờ nhất quán */
-    background: rgba(30, 41, 59, 0.5);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Hiệu ứng chuyển động mượt */
-}
-
-/* --- Thẻ 1: Câu chuyện (trên) --- */
-.card-story {
-    z-index: 2; /* Luôn nằm trên lúc đầu */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-    .card-story .about-content h2 {
-        font-size: 2.5rem;
+    .section-title h2 {
+        font-family: 'Source Code Pro', monospace; /* <-- FONT GIỐNG CODE */
+        font-size: 2.5rem; /* Kích thước lớn, nổi bật */
+        color: #E5E7EB; /* Màu chữ trắng ngà */
+        text-transform: uppercase; /* VIẾT HOA TOÀN BỘ */
+        letter-spacing: 2px; /* Tăng khoảng cách giữa các chữ */
+        text-shadow: 0 0 10px rgba(229, 231, 235, 0.2); /* Hiệu ứng phát sáng nhẹ */
     }
-
-    .card-story .about-content p {
-        font-size: 1.1rem;
-        max-width: 80%;
-    }
-
-.hover-indicator {
-    margin-top: 30px;
-    color: #6b7280;
-    font-style: italic;
-}
-
-/* --- Thẻ 2: Kỹ năng (dưới) --- */
-.card-skills {
-    z-index: 1; /* Nằm dưới lúc đầu */
-    transform: translateY(30px) rotate(3deg); /* Hơi nghiêng và dịch xuống để lộ ra */
-}
-
-    .card-skills h3 {
-        text-align: center;
-        text-transform: uppercase;
-        color: #9CA3AF;
-        margin-bottom: 30px;
-    }
-
-/* --- HIỆU ỨNG KHI HOVER --- */
-.stack-container:hover .card-story {
-    transform: translateY(-100px) rotate(-5deg) scale(0.95); /* Bay lên, xoay và thu nhỏ */
-}
-
-.stack-container:hover .card-skills {
-    transform: translateY(0) rotate(0); /* Trở về vị trí trung tâm */
-    z-index: 3; /* Nổi lên trên cùng */
-}
-
-/* --- Lưới logo kỹ năng --- */
-.skills-logo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 25px;
-    padding: 0 20px;
-}
-
-.skill-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-    .skill-item:hover {
-        transform: scale(1.1);
-    }
-
-    .skill-item img {
-        width: 50px;
-        height: 50px;
-        /* Biến logo thành màu trắng để đồng bộ, trừ khi hover */
-        filter: invert(90%) sepia(13%) saturate(137%) hue-rotate(181deg) brightness(96%) contrast(91%);
-        transition: filter 0.3s ease;
-    }
-
-    .skill-item:hover img {
-        filter: none; /* Hiện lại màu gốc khi hover */
-    }
-
-    .skill-item span {
-        color: #9CA3AF;
-        font-size: 0.9rem;
-    }
-
-/* Đảm bảo bong bóng nằm sau cùng */
-.about-section .bubbles-container {
-    z-index: 0;
-}
 
 /* ======================= HIỆU ỨNG BỌT KHÍ ======================= */
 
@@ -425,55 +451,173 @@ body {
         }
 
 
+
+
 /* =================================================================== */
-/* ======================= RESPONSIVE DESIGN ======================= */
+/* =================== TỔNG HỢP RESPONSIVE DESIGN =================== */
 /* =================================================================== */
 
-/* --- Áp dụng cho màn hình Tablet và nhỏ hơn (dưới 1024px) --- */
+/* --- 1. Áp dụng cho màn hình Tablet và nhỏ hơn (<= 1024px) --- */
 @media (max-width: 1024px) {
     /* --- Hero Section --- */
     .hero-section {
-        flex-direction: column; /* Xếp các cột chồng lên nhau theo chiều dọc */
+        flex-direction: column;
     }
 
     .hero-split-left {
-        flex: none; /* Bỏ tỉ lệ 4-6 */
+        flex: none;
         width: 100%;
-        height: 50%; /* Chiếm 50% chiều cao */
-        text-align: center; /* Căn giữa nội dung */
-        clip-path: none; /* Bỏ đường cong đi */
+        height: 50%;
+        text-align: center;
+        clip-path: none;
         border-radius: 0;
         padding: 20px;
+        justify-content: flex-end; /* Đẩy chữ xuống dưới một chút */
+        padding-bottom: 50px;
     }
-
-        .hero-split-left h1 {
-            font-size: 2rem;
-        }
 
     .hero-split-right {
         flex: none;
         width: 100%;
         height: 50%;
+        align-items: flex-start; /* Đẩy ảnh lên trên một chút */
     }
 
     .hero-portrait {
-        max-width: 280px; /* Thu nhỏ ảnh chân dung */
-        width: 70%;
-        transform: none; /* Bỏ dịch chuyển ngang */
+        max-width: 300px;
+        width: 80%;
+        transform: none;
     }
 
     .hero-title-container {
-        /* Tiêu đề chính sẽ nằm đè lên ảnh chân dung */
-        top: 75%; /* Dịch tiêu đề xuống nửa dưới màn hình */
+        top: 75%; /* Dịch tiêu đề xuống nửa dưới */
+    }
+
+    /* --- About Section (Stacked Cards) --- */
+    .stack-container {
+        max-width: 700px;
+        height: 550px;
+    }
+
+    /* --- Projects Section --- */
+    .projects-grid {
+        /* Trên tablet, có thể bắt đầu hiển thị 2 cột */
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    /* --- Hobbies Section (Polaroids) --- */
+    .polaroid-grid {
+        /* Trên tablet, hiển thị 2 cột thay vì 4 */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        max-width: 700px;
     }
 }
 
-/* --- Áp dụng cho màn hình Mobile (dưới 640px) --- */
-@media (max-width: 640px) {
-    .hero-title {
-        font-size: 1.8rem; /* Làm chữ nhỏ hơn nữa cho vừa màn hình mobile */
+
+/* --- 2. Áp dụng cho màn hình Mobile (<= 768px) --- */
+@media (max-width: 768px) {
+    body {
+        font-size: 15px; /* Chữ nhỏ hơn một chút để dễ đọc */
     }
 
+    .section-title h2 {
+        font-size: 2rem;
+    }
+
+    /* --- Hero Section --- */
+    .hero-split-left h1 {
+        font-size: 2rem;
+    }
+
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    /* --- About Section (Stacked Cards) --- */
+    .about-section {
+        height: auto; /* Chiều cao tự động theo nội dung */
+        padding: 80px 20px;
+    }
+
+    .stack-container {
+        width: 100%;
+        height: auto;
+        display: flex; /* Chuyển sang flexbox */
+        flex-direction: column; /* Xếp dọc 2 thẻ */
+        gap: 20px; /* Tạo khoảng cách giữa 2 thẻ */
+        cursor: default;
+    }
+
+    .stacked-card {
+        position: static; /* Bỏ định vị tuyệt đối */
+        height: auto;
+        transform: none !important; /* Xóa mọi hiệu ứng transform */
+    }
+
+    .stack-container:hover .card-story,
+    .stack-container:hover .card-skills {
+        transform: none !important; /* Tắt hiệu ứng hover */
+    }
+
+    .card-story .about-content p {
+        max-width: 100%;
+    }
+
+    .hover-indicator {
+        display: none; /* Ẩn dòng chữ "Di chuột..." */
+    }
+
+    /* --- Projects Section --- */
+    .projects-section {
+        padding: 80px 20px; /* Giảm padding hai bên */
+    }
+
+    .projects-grid {
+        /* Trên mobile, chỉ hiển thị 1 cột */
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Hobbies Section (Polaroids) --- */
+    .hobbies-section {
+        padding: 80px 20px;
+    }
+
+    .polaroid-grid {
+        /* Trên mobile, chỉ hiển thị 1 cột */
+        grid-template-columns: 1fr;
+        max-width: 350px; /* Giới hạn độ rộng của ảnh */
+    }
+
+    .polaroid-card {
+        /* Bỏ hết hiệu ứng xoay và dịch chuyển trên mobile */
+        transform: none !important;
+        margin-top: 0 !important;
+    }
+
+    /* --- Footer Section --- */
+    .footer-section {
+        padding: 80px 20px 40px 20px;
+    }
+
+    .contact-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .contact-link {
+        width: 50px;
+        height: 50px;
+    }
+
+        .contact-link i {
+            font-size: 20px;
+        }
+}
+
+
+/* --- 3. Tinh chỉnh cho màn hình Mobile rất nhỏ (<= 480px) --- */
+@media (max-width: 480px) {
+    /* --- Hero Section --- */
     .hero-split-left h1 {
         font-size: 1.5rem;
     }
@@ -481,4 +625,96 @@ body {
     .hero-split-left p {
         font-size: 0.9rem;
     }
+
+    .hero-portrait {
+        max-width: 220px;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    /* --- About Section --- */
+    .card-story .about-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .card-story .about-content p {
+        font-size: 1rem;
+    }
 }
+
+
+/* --- NÂNG CẤP RESPONSIVE CHO NAVBAR --- */
+@media (max-width: 860px) { /* Breakpoint cho tablet và nhỏ hơn */
+
+    .navbar-container {
+        padding: 0 20px; /* Giảm padding hai bên trên mobile */
+    }
+
+    /* Ẩn các link và nút CTA */
+    .nav-links,
+    .nav-cta {
+        display: none;
+    }
+
+    /* Hiện nút hamburger */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* --- Giao diện khi menu được MỞ (thêm class .active bằng JS) --- */
+    .nav-links.active {
+        display: flex !important; /* <-- THÊM !important ĐỂ BUỘC NÓ PHẢI HIỆN RA */
+
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 100px;
+        align-items: center;
+        gap: 30px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(17, 24, 39, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        z-index: 999;
+        overflow-y: auto;
+    }
+
+        /* Tối ưu các thẻ <a> để dễ bấm hơn */
+        .nav-links.active a {
+            font-size: 1.3rem;
+            color: #E5E7EB;
+            padding: 15px 0;
+            display: block;
+            width: 100%;
+            text-align: center; /* Đảm bảo chữ luôn ở giữa */
+        }
+
+        /* === SỬA LỖI Ở ĐÂY === */
+        /* Ra lệnh rõ ràng cho các thẻ <li> phải được hiển thị */
+        .nav-links.active li {
+            display: block; /* Bắt buộc thẻ <li> phải hiển thị */
+            width: 100%; /* Chiếm toàn bộ chiều rộng để căn giữa */
+            text-align: center; /* Căn giữa chữ */
+        }
+
+    /* --- Biến đổi icon hamburger thành dấu X khi MỞ --- */
+    .nav-toggle.active .hamburger {
+        transform: rotate(45deg);
+        background-color: #fff; /* Đảm bảo nút X luôn màu trắng */
+    }
+
+        .nav-toggle.active .hamburger::before {
+            transform: rotate(90deg);
+            top: 0;
+        }
+
+        .nav-toggle.active .hamburger::after {
+            display: none; /* Ẩn thanh dưới cùng */
+        }
+}
+

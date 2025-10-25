@@ -1,0 +1,51 @@
+﻿/* =================================================================== */
+/* ============== SECTION: CHỨNG CHỈ & THÀNH TỰU =============== */
+/* =================================================================== */
+
+.achievements-section {
+    padding: 100px 20px;
+    position: relative;
+}
+
+/* --- Thẻ Placeholder --- */
+.achievement-placeholder {
+    max-width: 700px;
+    margin: 0 auto; /* Tự động căn giữa */
+    padding: 50px 40px;
+    /* Hiệu ứng kính mờ nhất quán */
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* VIỀN NÉT ĐỨT - ĐIỂM NHẤN CHÍNH */
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+    .achievement-placeholder:hover {
+        border-color: rgba(52, 211, 153, 0.5); /* Sáng viền lên khi hover */
+        box-shadow: 0 0 30px rgba(52, 211, 153, 0.1);
+    }
+
+    .achievement-placeholder i {
+        font-size: 3.5rem;
+        color: #4B5563; /* Màu xám đậm, thể hiện trạng thái "chờ" */
+        margin-bottom: 20px;
+    }
+
+    .achievement-placeholder h4 {
+        font-family: 'Source Code Pro', monospace;
+        font-size: 1.5rem;
+        color: #9CA3AF; /* Màu xám nhạt */
+        margin-bottom: 15px;
+    }
+
+    .achievement-placeholder p {
+        color: #6B7280; /* Màu xám mờ nhất */
+        line-height: 1.7;
+        max-width: 80%;
+    }
