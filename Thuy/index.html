@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Frontend Developer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="container nav-container">
+        <div class="logo">
+          <a href="#home"><img src="img/logo_full.png" alt="Logo website" /></a>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#skills">Kỹ năng</a></li>
+          <li><a href="#projects">Dự án</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Header với phần giới thiệu -->
+    <header id="home">
+      <div class="header-bg"></div>
+
+      <!-- Ảnh cá nhân ở góc trên bên trái -->
+      <div class="profile-image">
+        <img src="anh.jpg" alt="Your Photo" />
+      </div>
+
+      <div class="container">
+        <div class="header-content">
+          <h1>
+            <span style="display: block">Hi, I am Thu Thùy</span>
+          </h1>
+          <div class="typing-text">
+            Tôi là một <span class="typed" id="typed-text"></span>
+          </div>
+          <div class="header-badges">
+            <div class="badge">Frontend Developer</div>
+            <div class="badge">Creative Coder</div>
+          </div>
+          <p>
+            Tôi là một lập trình viên frontend với niềm đam mê mãnh liệt trong
+            việc tạo ra những trải nghiệm người dùng độc đáo và sáng tạo. Tôi
+            bắt đầu hành trình của mình tại Đại học Giao thông Vận tải TP.HCM,
+            nơi tôi khám phá ra niềm đam mê với việc biến những ý tưởng trừu
+            tượng thành những giao diện sống động.
+          </p>
+          <a href="#" class="btn">Download CV</a>
+          <a href="#projects" class="btn">Khám Phá Dự Án</a>
+
+          <!-- Thêm social-links vào header -->
+          <div class="header-social-links">
+            <a
+              href="https://www.facebook.com/thuy.thuy.980608"
+              target="_blank"
+              aria-label="Facebook"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              aria-label="LinkedIn"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a
+              href="https://github.com/thuthuy004"
+              target="_blank"
+              aria-label="GitHub"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- About - CẤU TRÚC MỚI -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">
+          Mục Tiêu Nghề Nghiệp & Giới Thiệu Bản Thân
+        </h2>
+        <div class="about-content">
+          <!-- Cột trái: Giới thiệu bản thân -->
+          <div class="about-left">
+            <h3>Giới Thiệu Bản Thân</h3>
+            <div class="personal-info">
+              <div class="info-item">
+                <strong>Họ và tên:</strong> Nguyễn Thị Thu Thùy
+              </div>
+              <div class="info-item">
+                <strong>Trường:</strong> Đại học Giao thông Vận tải TP.HCM
+              </div>
+              <div class="info-item">
+                <strong>Ngành:</strong> Công nghệ thông tin
+              </div>
+              <div class="info-item">
+                <strong>Ngày sinh:</strong> 03/01/2004
+              </div>
+              <div class="info-item">
+                <strong>Địa chỉ:</strong> Phường Tân Hòa - TP.HCM
+              </div>
+            </div>
+
+            <p>
+              Với niềm đam mê công nghệ và có định hướng rõ ràng trong lĩnh vực
+              phát triển web nền tảng là tư duy logic, phân tích và sự yêu thích
+              sáng tạo, tôi luôn tìm kiếm những giải pháp tối ưu để biến ý tưởng
+              thành các sản phẩm kỹ thuật số hoạt động hiệu quả.
+            </p>
+          </div>
+
+          <!-- Cột phải: Mục tiêu nghề nghiệp -->
+          <div class="about-right">
+            <h3>Mục Tiêu Nghề Nghiệp</h3>
+            <p>
+              Tôi mong muốn trở thành một Frontend Developer chuyên nghiệp, có
+              khả năng tạo ra những sản phẩm không chỉ hoạt động tốt mà còn kể
+              được một câu chuyện, truyền tải được cảm xúc và để lại ấn tượng
+              lâu dài.
+            </p>
+            <p>
+              tôi đặt mục tiêu thành thạo các framework frontend hiện đại như
+              React, Vue.js và nâng cao kỹ năng UX/UI design. Tôi cũng mong muốn
+              tham gia vào các dự án có quy mô lớn hơn, nơi tôi có thể học hỏi
+              từ các chuyên gia và đóng góp giá trị thực sự.
+            </p>
+            <p>
+              Về lâu dài, tôi hướng đến việc trở thành một Full-stack Developer,
+              có khả năng xây dựng các ứng dụng web hoàn chỉnh từ frontend đến
+              backend.
+            </p>
+            <a href="#contact" class="btn">Kết Nối Cùng Tôi</a>
+          </div>
+        </div>
+
+        <!-- Phần sở thích và bộ sưu tập cá nhân -->
+        <div class="hobbies-collection">
+          <!-- Cột trái: Sở thích -->
+          <div class="hobby-section">
+            <h3 class="hobby-title">🎨 Sở Thích Cá Nhân</h3>
+            <div class="hobby-list">
+              <div class="hobby-item">
+                <i class="fas fa-running"></i>
+                <span>Thể thao</span>
+              </div>
+              <div class="hobby-item">
+                <i class="fas fa-seedling"></i>
+                <span>Chăm sóc cây hoa</span>
+              </div>
+              <div class="hobby-item">
+                <i class="fas fa-headphones-alt"></i>
+                <span>Khám phá & du lịch trải nghiệm</span>
+              </div>
+              <div class="hobby-item">
+                <i class="fas fa-plane-departure"></i>
+                <span>Nghe nhạc chill & làm việc sáng tạo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cột phải: Bộ sưu tập cá nhân -->
+          <div class="photo-slider">
+            <h3 class="hobby-title">📸 Bộ Sưu Tập Cá Nhân</h3>
+            <div class="slider">
+              <button class="prev-btn">&#10094;</button>
+
+              <div class="slider-track">
+                <img src="img/anh1.jpg" alt="Ảnh 1" />
+                <img src="img/anh2.jpg" alt="Ảnh 2" />
+                <img src="img/anh33.jpg" alt="Ảnh 3" />
+                <img src="img/anh4.jpg" alt="Ảnh 4" />
+                <img src="img/anh5.jpg" alt="Ảnh 4" />
+                <img src="img/anh66.jpg" alt="Ảnh 4" />
+                <img src="img/anh7.jpg" alt="Ảnh 4" />
+                <img src="img/anh9.jpg" alt="Ảnh 4" />
+              </div>
+
+              <button class="next-btn">&#10095;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <h2 class="section-title">Bộ Kỹ Năng</h2>
+        <div class="skills-container">
+          <div class="skill__list">
+            <!-- Viền hiệu ứng chạy -->
+            <div class="border-top"></div>
+            <div class="border-bottom"></div>
+
+            <!-- Front-End -->
+            <article class="skill__top">
+              <h3 class="skill__heading">Front-End</h3>
+              <div class="skill__box">
+                <ul class="skill__box-list">
+                  <li class="skill__box-list__item" data-skill="70">
+                    <i class="fa-brands fa-html5"></i> <span>HTML</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                  <li class="skill__box-list__item" data-skill="70">
+                    <i class="fa-brands fa-css3-alt"></i><span>CSS</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                  <li class="skill__box-list__item" data-skill="60">
+                    <i class="fa-brands fa-js"></i><span>JS</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                  <li class="skill__box-list__item" data-skill="30">
+                    <i class="fa-brands fa-bootstrap"></i>
+                    <span>Bootstrap</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                </ul>
+              </div>
+            </article>
+
+            <!-- Back-End -->
+            <article class="skill__bottom">
+              <h3 class="skill__heading">Back-End</h3>
+              <div class="skill__box">
+                <ul class="skill__box-list">
+                  <li class="skill__box-list__item" data-skill="20">
+                    <i class="fa-brands fa-php"></i><span>PHP</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                  <li class="skill__box-list__item" data-skill="30">
+                    <i class="fa-brands fa-node-js"></i><span>Node.js</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                  <li class="skill__box-list__item" data-skill="40">
+                    <i class="fa-solid fa-database"></i><span>MySQL</span>
+                    <div class="skill-progress"></div>
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ngôn ngữ & Chứng chỉ -->
+    <section id="language-certificates" class="language-certificates">
+      <div class="container">
+        <h2 class="section-title">Ngôn Ngữ & Chứng Chỉ</h2>
+        <div class="skills-container">
+          <div class="skill-category">
+            <h3><i class="fas fa-language"></i> Ngôn ngữ</h3>
+            <ul class="skill-list">
+              <li>Tiếng Việt (Bản ngữ)</li>
+              <li>Tiếng Anh (Giao tiếp tốt, đọc hiểu tài liệu kỹ thuật)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phần Chứng chỉ -->
+        <div class="certificates-section">
+          <div class="certificates-slider">
+            <h3 class="certificates-title">📜 Chứng chỉ</h3>
+            <div class="certificates-slider-container">
+              <button class="cert-prev-btn">&#10094;</button>
+
+              <div class="certificates-track">
+                <!-- Slide 1 - Thông báo hiện tại -->
+                <div class="certificate-slide">
+                  <img
+                    src="img/ISTQB.jpg"
+                    alt="Chứng chỉ 1 kiểm thử phần mềm"
+                  />
+                </div>
+              </div>
+
+              <button class="cert-next-btn">&#10095;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <h2 class="section-title">Dự Án</h2>
+        <div class="projects-container">
+          <div class="project-card">
+            <div class="project-image">
+              <img src="img/sudoku.png" alt="Sudoku Game" />
+            </div>
+            <div class="project-content">
+              <h3>Sudoku_game</h3>
+              <p>
+                Ứng dụng giải đố Sudoku kinh điển với nhiều cấp độ khó, chế độ
+                ghi chú (pencil mark) và gợi ý để hỗ trợ người chơi.
+              </p>
+              <div class="project-tags">
+                <span>Python</span>
+              </div>
+              <a href="https://github.com/thuthuy004/Sudoku_game" class="btn"
+                >Xem Chi Tiết</a
+              >
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <img src="img/blanklabel.jpg" alt="web bán thời Trang" />
+            </div>
+            <div class="project-content">
+              <h3>BLANKLABEL</h3>
+              <p>
+                Website bán đồ thời trang. Giao diện hiện đại, tập trung vào
+                trải nghiệm mua sắm và quản lý tồn kho.
+              </p>
+              <div class="project-tags">
+                <span>PHP</span>
+                <span>css</span>
+                <span>JavaScript</span>
+              </div>
+              <a href="https://github.com/DT0712/Web_TMDT" class="btn"
+                >Xem Chi Tiết</a
+              >
+            </div>
+          </div>
+          <div class="project-card">
+            <div class="project-image">
+              <i class="fas fa-recycle"></i>
+            </div>
+            <div class="project-content">
+              <h3>Goods_Exchange_Application</h3>
+              <p>
+                Ứng dụng Trao đổi Hàng hóa, một nền tảng toàn diện được thiết kế
+                cho cả người dùng di động và web.
+              </p>
+              <div class="project-tags">
+                <span>Java</span>
+              </div>
+              <a href="https://github.com/thuthuy204/VideoCall" class="btn"
+                >Xem Chi Tiết</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Kết Nối</h2>
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="icon-box">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div>
+                <h3>Địa chỉ</h3>
+                <p>Tân Hòa - TPHCM</p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon-box">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div>
+                <h3>Email</h3>
+                <p>
+                  <a href="mailto:thuthuyy004thuy@gmail.com"
+                    >thuthuyy004thuy@gmail.com</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-item">
+              <div class="icon-box">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div>
+                <h3>Điện thoại</h3>
+                <p>
+                  <a href="tel:+397245651" style="color: white">+397245651</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <label for="name">Họ và tên</label>
+                <input
+                  type="text"
+                  id="name"
+                  class="form-control"
+                  placeholder="Nhập họ và tên"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control"
+                  placeholder="Nhập email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="subject">Chủ đề</label>
+                <input
+                  type="text"
+                  id="subject"
+                  class="form-control"
+                  placeholder="Nhập chủ đề"
+                />
+              </div>
+              <div class="form-group">
+                <label for="message">Tin nhắn</label>
+                <textarea
+                  id="message"
+                  class="form-control"
+                  placeholder="Nhập tin nhắn"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn">Gửi tin nhắn</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="social-links">
+          <a
+            href="https://www.facebook.com/thuy.thuy.980608"
+            target="_blank"
+            aria-label="Facebook"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            aria-label="LinkedIn"
+          >
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a
+            href="https://github.com/thuthuy004"
+            target="_blank"
+            aria-label="GitHub"
+          >
+            <i class="fab fa-github"></i>
+          </a>
+        </div>
+        <p>&copy; Portfolio của Thùy.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
